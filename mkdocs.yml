@@ -1,0 +1,74 @@
+site_name: Game Combat 2D
+site_description: Technical Design Document — Real-time 1v1 Combat System
+site_author: Game Combat 2D
+
+theme:
+  name: material
+
+  palette:
+    - scheme: slate
+      primary: custom
+      accent: custom
+
+  font:
+    text: DM Sans
+    code: Fira Code
+
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.top
+    - navigation.footer
+    - toc.integrate
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - content.tooltips
+    - search.highlight
+    - search.suggest
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - tables
+  - def_list
+  - abbr
+  - footnotes
+
+plugins:
+  - search:
+      lang: es
+
+nav:
+  - Overview: 00-overview.md
+  - Controls: 01-controls.md
+  - Combat System: 02-combat-system.md
+  - Health System: 03-health-system.md
+  - Energy System: 04-energy-system.md
+  - Game Rules: 05-game-rules.md
+  - UI System: 06-ui-system.md
+  - Game Behavior: 07-game-behavior.md
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/extra.js

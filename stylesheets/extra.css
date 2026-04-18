@@ -1,0 +1,1064 @@
+/* ============================================================================
+   GAME COMBAT 2D  ·  Technical Design Document
+   Design System v3.0
+   
+   Direction: AAA Studio internal documentation.
+   References: Linear, Riot Games wiki, Valve tech docs, Vercel docs.
+   Palette: Near-black base · Single cold-blue accent · 4 semantic colors.
+   Type: Syne (display) · DM Sans (body) · Fira Code (mono).
+   ============================================================================ */
+
+/* --------------------------------------------------------------------------
+   FONTS
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Fira+Code:wght@400;500&display=swap');
+
+
+/* --------------------------------------------------------------------------
+   DESIGN TOKENS
+   -------------------------------------------------------------------------- */
+:root {
+  /* ─── Backgrounds ─────────────────────────────────────────── */
+  --ink:        #040609;      /* near-black, slight blue cast */
+  --base:       #07090f;      /* main page background */
+  --panel:      #0b0e18;      /* sidebar panel */
+  --surface:    #0e1220;      /* card / table bg */
+  --raised:     #121828;      /* elevated card */
+  --hover:      #18213a;      /* hover state */
+  --overlay:    #1e2d4a;      /* selected / overlay */
+
+  /* ─── Accent ──────────────────────────────────────────────── */
+  --accent:     #4f8df9;      /* primary blue */
+  --accent-lo:  rgba(79,141,249,.08);
+  --accent-mid: rgba(79,141,249,.18);
+  --accent-hi:  rgba(79,141,249,.35);
+  --accent-txt: #93b8fc;      /* accent on dark bg */
+
+  /* ─── Semantic ────────────────────────────────────────────── */
+  --ok:         #34d399;
+  --ok-lo:      rgba(52,211,153,.09);
+  --ok-border:  rgba(52,211,153,.22);
+
+  --warn:       #fbbf24;
+  --warn-lo:    rgba(251,191,36,.09);
+  --warn-border:rgba(251,191,36,.22);
+
+  --fail:       #f87171;
+  --fail-lo:    rgba(248,113,113,.09);
+  --fail-border:rgba(248,113,113,.22);
+
+  --note:       #818cf8;
+  --note-lo:    rgba(129,140,248,.09);
+  --note-border:rgba(129,140,248,.22);
+
+  /* ─── Text ────────────────────────────────────────────────── */
+  --fg-1:  #f0f4ff;           /* primary */
+  --fg-2:  #8a9bbf;           /* secondary */
+  --fg-3:  #3e4f6b;           /* muted / disabled */
+
+  /* ─── Borders ─────────────────────────────────────────────── */
+  --line:    rgba(255,255,255,.055);
+  --line-md: rgba(255,255,255,.09);
+  --line-ac: rgba(79,141,249,.22);
+
+  /* ─── Geometry ────────────────────────────────────────────── */
+  --r-xs: 3px;   --r-sm: 5px;
+  --r-md: 8px;   --r-lg: 12px;  --r-xl: 16px;
+
+  /* ─── Spacing ─────────────────────────────────────────────── */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px;
+  --s5:20px; --s6:24px; --s8:32px; --s10:40px; --s12:48px;
+
+  /* ─── Shadows ─────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.4);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.3);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.5), 0 2px 8px rgba(0,0,0,.3);
+  --glow-ac:   0 0 28px rgba(79,141,249,.18);
+}
+
+/* --------------------------------------------------------------------------
+   MATERIAL OVERRIDES  (theme tokens)
+   -------------------------------------------------------------------------- */
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color:      var(--base);
+  --md-default-fg-color:      var(--fg-1);
+  --md-primary-fg-color:      var(--accent);
+  --md-accent-fg-color:       var(--accent);
+  --md-typeset-color:         var(--fg-1);
+  --md-typeset-a-color:       var(--accent);
+  --md-code-bg-color:         var(--ink);
+  --md-code-fg-color:         var(--accent-txt);
+  --md-footer-bg-color:       var(--ink);
+  --md-footer-fg-color:       var(--fg-3);
+  --md-shadow-z1:             var(--shadow-sm);
+  --md-shadow-z2:             var(--shadow-md);
+  --md-shadow-z3:             var(--shadow-lg);
+}
+
+
+/* --------------------------------------------------------------------------
+   GLOBAL / RESET
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--base);
+  /* Subtle crosshair grid */
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb {
+  background: rgba(79,141,249,.20);
+  border-radius: 99px;
+  transition: background .15s;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* Selection */
+::selection {
+  background: var(--accent-mid);
+  color: var(--fg-1);
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-xs);
+}
+
+
+/* --------------------------------------------------------------------------
+   HEADER
+   -------------------------------------------------------------------------- */
+.md-header {
+  background: rgba(4,6,9,.92) !important;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--line);
+  box-shadow: none;
+  /* Thin accent line at very top */
+  box-shadow: inset 0 2px 0 var(--accent-hi);
+}
+
+.md-header__title {
+  font-family: 'Syne', sans-serif !important;
+  font-weight: 700;
+  font-size: 0.85rem !important;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--fg-1) !important;
+}
+
+.md-header__button {
+  color: var(--fg-2) !important;
+  transition: color .15s;
+}
+
+.md-header__button:hover {
+  color: var(--fg-1) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   NAVIGATION TABS
+   -------------------------------------------------------------------------- */
+.md-tabs {
+  background: rgba(7,9,15,.95) !important;
+  border-bottom: 1px solid var(--line);
+}
+
+.md-tabs__list {
+  padding: 0 var(--s4);
+}
+
+.md-tabs__link {
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--fg-3) !important;
+  opacity: 1 !important;
+  transition: color .15s;
+  padding: 0 var(--s4);
+}
+
+.md-tabs__link:hover {
+  color: var(--fg-2) !important;
+}
+
+.md-tabs__link--active {
+  color: var(--fg-1) !important;
+}
+
+/* Active tab indicator */
+.md-tabs__link--active::after {
+  background: var(--accent) !important;
+  height: 2px;
+  border-radius: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   SIDEBAR  (IDE-style)
+   -------------------------------------------------------------------------- */
+.md-sidebar--primary {
+  background: var(--panel) !important;
+  border-right: 1px solid var(--line);
+}
+
+.md-sidebar--secondary {
+  background: transparent;
+}
+
+.md-nav {
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+/* Section title (e.g. "GAME COMBAT 2D") */
+.md-nav__title {
+  font-family: 'Syne', sans-serif !important;
+  font-size: 0.58rem !important;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--fg-3) !important;
+  padding: var(--s5) var(--s4) var(--s2);
+}
+
+/* Nav items */
+.md-nav__item .md-nav__link {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--fg-2) !important;
+  border-radius: 0;
+  padding: 6px var(--s5);
+  border-left: 2px solid transparent;
+  transition: color .12s, background .12s, border-color .12s;
+  line-height: 1.35;
+}
+
+.md-nav__item .md-nav__link:hover {
+  color: var(--fg-1) !important;
+  background: rgba(255,255,255,.04);
+  border-left-color: var(--fg-3);
+}
+
+.md-nav__item .md-nav__link--active {
+  color: var(--accent-txt) !important;
+  background: var(--accent-lo);
+  border-left-color: var(--accent) !important;
+  font-weight: 500;
+}
+
+/* TOC links */
+.md-nav--secondary .md-nav__link {
+  font-size: 0.75rem;
+  padding: 4px var(--s4);
+  border-left-width: 1px;
+  color: var(--fg-3) !important;
+}
+
+.md-nav--secondary .md-nav__link:hover {
+  color: var(--fg-2) !important;
+}
+
+.md-nav--secondary .md-nav__link--active {
+  color: var(--accent-txt) !important;
+  border-left-color: var(--accent) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   CONTENT AREA
+   -------------------------------------------------------------------------- */
+.md-content {
+  background: transparent;
+}
+
+.md-content__inner {
+  padding: var(--s10) var(--s10) var(--s12) !important;
+  max-width: 840px;
+}
+
+
+/* --------------------------------------------------------------------------
+   TYPOGRAPHY  ·  Strict scale
+   -------------------------------------------------------------------------- */
+
+/* H1 — Page title: Syne 800, massive tracking */
+.md-typeset h1 {
+  font-family: 'Syne', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 2.4rem !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.5px;
+  color: var(--fg-1) !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  margin: 0 0 var(--s3) 0 !important;
+}
+
+/* Accent bar below H1 */
+.md-typeset h1::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin-top: var(--s4);
+  margin-bottom: var(--s6);
+}
+
+/* Lead sentence (blockquote right after h1) */
+.md-typeset h1 + blockquote {
+  margin-top: 0 !important;
+}
+
+/* H2 — Section label: overline style */
+.md-typeset h2 {
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--fg-3) !important;
+  border-bottom: none !important;
+  margin-top: var(--s12) !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+}
+
+/* Full-width separator under H2 label */
+.md-typeset h2::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--line-md);
+  margin-top: var(--s3);
+  margin-bottom: var(--s5);
+}
+
+/* H3 — Actual section heading */
+.md-typeset h3 {
+  font-family: 'Syne', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  color: var(--fg-1) !important;
+  letter-spacing: 0;
+  margin-top: var(--s8) !important;
+  margin-bottom: var(--s3) !important;
+}
+
+/* H4 — Sub-label */
+.md-typeset h4 {
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--fg-3) !important;
+  margin-top: var(--s6) !important;
+  margin-bottom: var(--s2) !important;
+}
+
+/* Body */
+.md-typeset p {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--fg-1);
+  margin-bottom: var(--s4);
+}
+
+/* Lead paragraph (blockquote) */
+.md-typeset blockquote p {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--fg-2);
+  font-style: italic;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Links */
+.md-typeset a {
+  color: var(--accent-txt) !important;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(147,184,252,.25);
+  transition: color .12s, border-color .12s;
+}
+
+.md-typeset a:hover {
+  color: #c5d8fd !important;
+  border-bottom-color: rgba(147,184,252,.6);
+}
+
+strong {
+  color: var(--fg-1) !important;
+  font-weight: 600;
+}
+
+/* HR */
+.md-typeset hr {
+  border: none;
+  height: 1px;
+  background: var(--line);
+  margin: var(--s8) 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   BLOCKQUOTE  (used as lead / intro)
+   -------------------------------------------------------------------------- */
+.md-typeset blockquote {
+  border-left: 2px solid var(--accent-hi) !important;
+  background: transparent;
+  margin: 0 0 var(--s6) 0;
+  padding: var(--s2) var(--s5);
+  color: var(--fg-2) !important;
+  font-style: italic;
+}
+
+
+/* --------------------------------------------------------------------------
+   TABLES  ·  Data grid aesthetic
+   -------------------------------------------------------------------------- */
+.md-typeset table:not([class]) {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.858rem;
+  background: var(--surface);
+  border: 1px solid var(--line-md);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin: var(--s5) 0 var(--s8);
+}
+
+.md-typeset table:not([class]) thead {
+  background: rgba(255,255,255,.03);
+  border-bottom: 1px solid var(--line-md);
+}
+
+.md-typeset table:not([class]) th {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 0.6rem !important;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--fg-3) !important;
+  padding: var(--s3) var(--s5);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.md-typeset table:not([class]) td {
+  padding: 10px var(--s5);
+  color: var(--fg-1);
+  border-bottom: 1px solid var(--line);
+  line-height: 1.5;
+  vertical-align: middle;
+}
+
+.md-typeset table:not([class]) tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.md-typeset table:not([class]) tbody tr {
+  transition: background .1s;
+}
+
+.md-typeset table:not([class]) tbody tr:hover td {
+  background: var(--accent-lo);
+}
+
+/* Code in tables */
+.md-typeset table:not([class]) code {
+  font-size: 0.78rem !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   ADMONITIONS  ·  Full custom — IDE panel style
+   -------------------------------------------------------------------------- */
+
+/* Wipe all Material defaults from the box */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: var(--r-md) !important;
+  border: 1px solid var(--line-md) !important;
+  border-left: none !important;
+  background: var(--surface) !important;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin: var(--s6) 0 !important;
+  padding: 0 !important;
+}
+
+/* Title bar */
+.md-typeset .admonition-title,
+.md-typeset summary {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.68rem !important;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: var(--s3) var(--s5) !important;
+  margin: 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+/* Kill default icon (Material uses mask-image on ::before pseudo) */
+.md-typeset .admonition-title::before,
+.md-typeset summary::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* Body padding */
+.md-typeset .admonition > *:not(.admonition-title),
+.md-typeset details > *:not(summary) {
+  padding: var(--s4) var(--s5) !important;
+  margin: 0 !important;
+}
+
+/* ── Variants ── */
+
+/* note / info */
+.md-typeset .admonition.note,
+.md-typeset .admonition.info {
+  border-color: var(--note-border) !important;
+}
+.md-typeset .admonition.note .admonition-title,
+.md-typeset .admonition.info .admonition-title {
+  background: var(--note-lo) !important;
+  color: var(--note) !important;
+}
+
+/* tip */
+.md-typeset .admonition.tip {
+  border-color: var(--ok-border) !important;
+}
+.md-typeset .admonition.tip .admonition-title {
+  background: var(--ok-lo) !important;
+  color: var(--ok) !important;
+}
+
+/* success / check */
+.md-typeset .admonition.success,
+.md-typeset .admonition.check {
+  border-color: var(--ok-border) !important;
+}
+.md-typeset .admonition.success .admonition-title,
+.md-typeset .admonition.check .admonition-title {
+  background: var(--ok-lo) !important;
+  color: var(--ok) !important;
+}
+
+/* warning / caution */
+.md-typeset .admonition.warning,
+.md-typeset .admonition.caution {
+  border-color: var(--warn-border) !important;
+}
+.md-typeset .admonition.warning .admonition-title,
+.md-typeset .admonition.caution .admonition-title {
+  background: var(--warn-lo) !important;
+  color: var(--warn) !important;
+}
+
+/* danger / error */
+.md-typeset .admonition.danger,
+.md-typeset .admonition.error {
+  border-color: var(--fail-border) !important;
+}
+.md-typeset .admonition.danger .admonition-title,
+.md-typeset .admonition.error .admonition-title {
+  background: var(--fail-lo) !important;
+  color: var(--fail) !important;
+}
+
+/* abstract */
+.md-typeset .admonition.abstract {
+  border-color: var(--line-ac) !important;
+}
+.md-typeset .admonition.abstract .admonition-title {
+  background: var(--accent-lo) !important;
+  color: var(--accent-txt) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   CODE  ·  Terminal / editor aesthetic
+   -------------------------------------------------------------------------- */
+.md-typeset code {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.8rem !important;
+  font-weight: 400;
+  background: var(--raised) !important;
+  color: var(--accent-txt) !important;
+  border: 1px solid var(--line-md);
+  border-radius: var(--r-xs);
+  padding: 1px 6px;
+}
+
+/* Code block wrapper */
+.md-typeset pre {
+  background: var(--ink) !important;
+  border: 1px solid var(--line-md);
+  border-radius: var(--r-lg) !important;
+  box-shadow: var(--shadow-md), inset 0 0 0 1px rgba(255,255,255,.03);
+  margin: var(--s4) 0 var(--s8);
+}
+
+.md-typeset pre > code {
+  font-family: 'Fira Code', monospace !important;
+  background: transparent !important;
+  border: none;
+  color: var(--fg-1) !important;
+  font-size: 0.82rem !important;
+  padding: 0;
+}
+
+/* Copy button */
+.md-clipboard {
+  color: var(--fg-3) !important;
+  transition: color .15s;
+}
+
+.md-clipboard:hover {
+  color: var(--accent-txt) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   KEYBOARD KEYS
+   -------------------------------------------------------------------------- */
+.md-typeset kbd {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.75rem !important;
+  font-weight: 400;
+  background: var(--raised) !important;
+  border: 1px solid var(--line-md) !important;
+  border-bottom-width: 2px !important;
+  border-radius: var(--r-xs) !important;
+  color: var(--fg-1) !important;
+  padding: 2px 8px !important;
+  box-shadow: none !important;
+  letter-spacing: 0;
+  display: inline-block;
+}
+
+
+/* --------------------------------------------------------------------------
+   LISTS
+   -------------------------------------------------------------------------- */
+.md-typeset ul {
+  list-style: none;
+  padding-left: var(--s5);
+}
+
+.md-typeset ul li {
+  position: relative;
+  padding-left: var(--s5);
+  line-height: 1.85;
+  color: var(--fg-1);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+}
+
+.md-typeset ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--fg-3);
+  font-weight: 300;
+}
+
+.md-typeset ol {
+  padding-left: var(--s8);
+  list-style: none;
+  counter-reset: li;
+}
+
+.md-typeset ol li {
+  counter-increment: li;
+  position: relative;
+  padding-left: var(--s3);
+  color: var(--fg-1);
+  font-size: 0.9rem;
+  line-height: 1.85;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.md-typeset ol li::before {
+  content: counter(li, decimal-leading-zero);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  position: absolute;
+  left: calc(-1 * var(--s8));
+  top: 0.18em;
+}
+
+
+/* --------------------------------------------------------------------------
+   DEFINITION LISTS
+   -------------------------------------------------------------------------- */
+.md-typeset dt {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.88rem;
+  color: var(--fg-1);
+  margin-top: var(--s5);
+  padding-left: 0;
+}
+
+.md-typeset dd {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--fg-2);
+  line-height: 1.7;
+  border-left: 2px solid var(--line-md);
+  padding-left: var(--s4);
+  margin-left: var(--s1);
+  margin-top: var(--s1);
+}
+
+
+/* --------------------------------------------------------------------------
+   TABS  (pymdownx.tabbed)
+   -------------------------------------------------------------------------- */
+.md-typeset .tabbed-set {
+  background: var(--surface);
+  border: 1px solid var(--line-md);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin: var(--s4) 0 var(--s8);
+}
+
+.md-typeset .tabbed-labels {
+  background: rgba(255,255,255,.02) !important;
+  border-bottom: 1px solid var(--line) !important;
+  padding: 0 var(--s4) !important;
+  gap: 0 !important;
+}
+
+.md-typeset .tabbed-labels > label {
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--fg-3) !important;
+  padding: var(--s3) var(--s5) !important;
+  border-bottom: 2px solid transparent;
+  margin: 0 !important;
+  transition: color .15s;
+}
+
+.md-typeset .tabbed-labels > label:hover {
+  color: var(--fg-2) !important;
+}
+
+.md-typeset .tabbed-content {
+  padding: var(--s5) var(--s6);
+}
+
+/* Remove tab border from inner tables */
+.md-typeset .tabbed-content .md-typeset table:not([class]),
+.md-typeset .tabbed-block table:not([class]) {
+  margin-bottom: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   GRID CARDS
+   -------------------------------------------------------------------------- */
+.md-typeset .grid.cards > * {
+  background: var(--surface) !important;
+  border: 1px solid var(--line-md) !important;
+  border-radius: var(--r-lg) !important;
+  padding: var(--s5) var(--s6) !important;
+  transition: border-color .15s, transform .15s, box-shadow .15s;
+  color: var(--fg-1);
+}
+
+.md-typeset .grid.cards > *:hover {
+  border-color: var(--line-ac) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md), var(--glow-ac);
+}
+
+.md-typeset .grid.cards > * > p:first-child strong {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--fg-1);
+}
+
+.md-typeset .grid.cards > * > p {
+  font-size: 0.84rem;
+  color: var(--fg-2);
+  line-height: 1.65;
+}
+
+.md-typeset .grid.cards > * a {
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+
+/* --------------------------------------------------------------------------
+   STAT COMPONENTS  (custom HTML in md)
+   -------------------------------------------------------------------------- */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: var(--s3);
+  margin: var(--s6) 0 var(--s8);
+}
+
+.stat-block {
+  background: var(--surface);
+  border: 1px solid var(--line-md);
+  border-radius: var(--r-lg);
+  padding: var(--s5) var(--s5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  position: relative;
+  overflow: hidden;
+  transition: border-color .15s;
+}
+
+/* Accent glow top edge */
+.stat-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: var(--s4); right: var(--s4);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-hi), transparent);
+}
+
+.stat-block:hover {
+  border-color: var(--line-ac);
+}
+
+.stat-block__value {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--fg-1);
+  letter-spacing: -2px;
+}
+
+.stat-block__value--accent { color: var(--accent-txt); }
+.stat-block__value--ok     { color: var(--ok); }
+.stat-block__value--warn   { color: var(--warn); }
+.stat-block__value--fail   { color: var(--fail); }
+
+.stat-block__label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+.stat-block__sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--fg-3);
+  margin-top: var(--s1);
+}
+
+
+/* --------------------------------------------------------------------------
+   STATUS BADGES  (inline use)
+   -------------------------------------------------------------------------- */
+.badge {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.badge--ok   { background: var(--ok-lo);   color: var(--ok);   border-color: var(--ok-border); }
+.badge--warn { background: var(--warn-lo); color: var(--warn); border-color: var(--warn-border); }
+.badge--fail { background: var(--fail-lo); color: var(--fail); border-color: var(--fail-border); }
+.badge--info { background: var(--accent-lo); color: var(--accent-txt); border-color: var(--line-ac); }
+.badge--muted{ background: rgba(255,255,255,.04); color: var(--fg-3); border-color: var(--line); }
+
+
+/* --------------------------------------------------------------------------
+   SEARCH
+   -------------------------------------------------------------------------- */
+.md-search__input {
+  font-family: 'DM Sans', sans-serif !important;
+  background: var(--raised) !important;
+  border: 1px solid var(--line-md) !important;
+  border-radius: var(--r-sm) !important;
+  color: var(--fg-1) !important;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.md-search__input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px var(--accent-lo) !important;
+}
+
+.md-search__input::placeholder {
+  color: var(--fg-3) !important;
+}
+
+.md-search-result {
+  background: var(--panel) !important;
+  border: 1px solid var(--line-md);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.md-search-result__title {
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 500;
+  color: var(--fg-1) !important;
+}
+
+.md-search-result__meta {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.68rem;
+  color: var(--fg-3) !important;
+}
+
+.md-search-result mark {
+  background: var(--accent-mid) !important;
+  color: var(--accent-txt) !important;
+  border-radius: 2px;
+}
+
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
+.md-footer {
+  background: var(--ink) !important;
+  border-top: 1px solid var(--line);
+  margin-top: var(--s12);
+}
+
+.md-footer-meta {
+  background: transparent !important;
+}
+
+.md-footer__link {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 0.78rem;
+  color: var(--fg-3) !important;
+  transition: color .15s;
+}
+
+.md-footer__link:hover {
+  color: var(--fg-2) !important;
+}
+
+.md-footer__title {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--fg-3) !important;
+}
+
+.md-footer__direction {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--fg-3) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   BACK TO TOP
+   -------------------------------------------------------------------------- */
+.md-top {
+  background: var(--raised) !important;
+  border: 1px solid var(--line-ac) !important;
+  border-radius: 99px !important;
+  color: var(--accent-txt) !important;
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  box-shadow: var(--glow-ac);
+}
+
+
+/* --------------------------------------------------------------------------
+   ANNOUNCE BAR
+   -------------------------------------------------------------------------- */
+.md-announce {
+  background: var(--accent-lo) !important;
+  border-bottom: 1px solid var(--line-ac);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.72rem;
+  color: var(--accent-txt) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media screen and (max-width: 76.1875em) {
+  .md-content__inner {
+    padding: var(--s8) var(--s6) var(--s10) !important;
+  }
+
+  .md-typeset h1 {
+    font-size: 1.9rem !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .md-content__inner {
+    padding: var(--s6) var(--s4) var(--s8) !important;
+  }
+
+  .md-typeset h1 {
+    font-size: 1.6rem !important;
+  }
+
+  .stat-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
