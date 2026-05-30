@@ -5,7 +5,18 @@ Aquí no hay suerte ni ventajas aleatorias: cada victoria es resultado directo d
 
 ---
 
-## 👥 1. Selección de Personajes
+## 🏠 1. Menú Principal
+
+Al iniciar el juego, te encontrarás con el Menú Principal, donde podrás acceder a las siguientes opciones:
+- **Jugar:** Inicia una nueva partida y te lleva a la pantalla de selección de personajes.
+- **Opciones:** Abre un panel de configuración donde puedes:
+  - **Tutorial (Controles):** Ver una guía visual en pantalla con todos los controles del juego.
+  - **Audio:** Ajustar de forma independiente el Volumen de la Música y los Efectos de Sonido (SFX).
+- **Salir:** Cierra el juego de forma segura.
+
+---
+
+## 👥 2. Selección de Personajes
 
 Antes de entrar a la arena, pasarás por la **Pantalla de Selección de Personajes**:
 - Usa las **Flechas Izquierda y Derecha** para navegar por el carrusel de luchadores.
@@ -14,7 +25,7 @@ Antes de entrar a la arena, pasarás por la **Pantalla de Selección de Personaj
 
 ---
 
-## 🕹️ 2. Controles del Juego
+## 🕹️ 3. Controles del Juego
 
 El juego está diseñado para jugarse de forma local (dos jugadores en un mismo teclado). Asegúrate de estar cómodo antes de iniciar el combate.
 
@@ -51,7 +62,7 @@ El juego está diseñado para jugarse de forma local (dos jugadores en un mismo 
 
 ---
 
-## ⚔️ 3. Sistema de Combate y Poderes Especiales
+## ⚔️ 4. Sistema de Combate y Poderes Especiales
 
 Para dominar la arena, debes entender tus herramientas de ataque y defensa:
 
@@ -78,7 +89,7 @@ Tu personaje cuenta con hasta **4 ataques especiales únicos**.
 
 ---
 
-## ❤️ 4. Interfaz de Jugador (HUD)
+## ❤️ 5. Interfaz de Jugador (HUD)
 
 En la pantalla verás dos barras clave para tu supervivencia:
 
@@ -87,7 +98,7 @@ En la pantalla verás dos barras clave para tu supervivencia:
 
 ---
 
-## ⚙️ 5. Pausa y Opciones
+## ⚙️ 6. Pausa y Opciones
 
 En cualquier momento durante la pelea, puedes presionar la tecla **`Escape (Esc)`** para abrir el **Menú de Pausa**. Desde aquí podrás:
 - **Reanudar** la partida (la pelea se congela mientras estás en el menú).
@@ -97,7 +108,7 @@ En cualquier momento durante la pelea, puedes presionar la tecla **`Escape (Esc)
 
 ---
 
-## 📜 6. Reglas de Oro para Ganar
+## 📜 7. Reglas de Oro para Ganar
 
 Para convertirte en un experto, ten en cuenta estas mecánicas ocultas pero esenciales:
 
