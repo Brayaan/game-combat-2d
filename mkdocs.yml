@@ -46,7 +46,7 @@ nav:
   - Game Behavior: 07-game-behavior.md
 
 extra_css:
-  - stylesheets/extra.css
+  - stylesheets/extra.css?v=2
 
 extra:
   social:
