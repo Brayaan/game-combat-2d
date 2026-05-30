@@ -1,145 +1,158 @@
-# Manual de Usuario
+# Guía Operativa del Sistema (User Manual)
 
-> Guía técnica y operativa para la configuración, controles y mecánicas de Game Combat 2D.
+> Documentación de usuario final referente a los esquemas de control, telemetría y reglas de interacción dentro de la plataforma Game Combat 2D.
 
 ---
 
-## 1. Menú Principal y Opciones
+## 1. Interfaz de Inicio y Navegación
 
-Al inicializar el juego, el sistema presenta la pantalla de **Menú Principal**, diseñada para ofrecer acceso estructurado a la configuración y al inicio de las partidas.
+Al inicializar el aplicativo, el cliente es recibido por la capa de presentación primaria (Menú Principal), la cual expone los flujos lógicos fundamentales del sistema.
 
-### Estructura de Navegación
+### Estructura del Menú Principal
 
 <div class="grid cards" markdown>
 
 - **Jugar**
     
-    Inicia el flujo lógico hacia la interfaz de selección de personaje y transiciona posteriormente a la arena de combate.
+    Inicializa el flujo de carga hacia la matriz de Selección de Entidades y, posteriormente, al entorno de combate físico.
 
 - **Opciones**
     
-    Abre el panel de configuración extendida, el cual contiene las siguientes subsecciones:
+    Despliega la consola de configuración de la sesión, que integra:
     
-    * **Tutorial (Controles):** Despliega una referencia esquemática sobre la asignación de hardware.
-    * **Audio:** Permite ajustar de forma independiente los niveles logarítmicos de Volumen de Música y Efectos de Sonido (SFX) mediante deslizadores interactivos.
+    * **Tutorial (Mapeo Físico):** Superposición de esquema en pantalla detallando la asignación de hardware.
+    * **Audio:** Subsistema de mezcla para la ecualización logarítmica de los buses de **Efectos de Sonido (SFX)** y **Banda Sonora**.
 
 - **Salir**
     
-    Finaliza el proceso en ejecución y cierra la aplicación de forma segura.
+    Envía la instrucción de terminación de proceso al sistema operativo.
 
 </div>
 
 ---
 
-## 2. Selección de Personajes
+## 2. Inicialización de Combate (Selección de Personajes)
 
-La antesala al combate consiste en una interfaz de carrusel rotativo que expone la lista de combatientes disponibles en el sistema.
+Previo al acceso al entorno físico, los operadores deben seleccionar la entidad a instanciar en la sesión.
 
-* **Navegación de Entidades:** Utilice las **Flechas Direccionales (Izquierda/Derecha)** para ciclar entre los personajes. El personaje central representa la selección activa y muestra de inmediato su animación en estado de reposo (Idle).
-* **Confirmación de Selección:** Presione la tecla **Enter** para fijar su selección e inicializar los parámetros de la arena de combate.
-* **Telemetría:** En pantalla se despliegan los atributos y la descripción técnica del combatiente ("Datos del Luchador").
+El selector opera mediante una interfaz de rotación (carrusel) con validación en tiempo real:
 
----
-
-## 3. Asignación de Controles
-
-La arquitectura del juego soporta multijugador local simultáneo en un solo teclado (PvP). El mapa de entradas ha sido segregado en dos perfiles independientes para mitigar el efecto de saturación (ghosting) del teclado.
-
-=== "Jugador 1"
-
-    | Acción de Control | Tecla Asignada |
-    |-------------------|:--------------:|
-    | Desplazamiento Izquierda | `A` |
-    | Desplazamiento Derecha | `D` |
-    | Salto Vertical | `Espacio` |
-    | Agacharse | `S` |
-    | Ataque Primario (Rápido) | `J` |
-    | Ataque Secundario (Fuerte)| `K` |
-    | Bloqueo / Defensa Activa | `L` |
-    | Ataque en Cuclillas | `Q` (manteniendo la posición agachada) |
-    | Ataque Aéreo con Impulso | `J` (durante la ventana de salto) |
-
-=== "Jugador 2"
-
-    | Acción de Control | Tecla Asignada |
-    |-------------------|:--------------:|
-    | Desplazamiento Izquierda | `Flecha Izquierda` |
-    | Desplazamiento Derecha | `Flecha Derecha` |
-    | Salto Vertical | `Flecha Arriba` |
-    | Agacharse | `Flecha Abajo` |
-    | Ataque Primario (Rápido) | `Numpad 1` |
-    | Ataque Secundario (Fuerte)| `Numpad 2` |
-    | Bloqueo / Defensa Activa | `Numpad 5` |
-    | Ataque en Cuclillas | `Q` (manteniendo la posición agachada) * |
-    | Ataque Aéreo con Impulso | `J` (durante la ventana de salto) * |
-
-    !!! note "Mapeo global de ataques avanzados"
-        Para la iteración técnica actual, las entradas secundarias de ataques en cuclillas y aéreos operan de forma global. Verifique la compatibilidad de *Key Rollover* de su teclado para ejecuciones simultáneas.
-
-!!! info "Comportamiento del Sistema de Auto-Orientación"
-    El modelo físico incluye alineación direccional estricta. El vector frontal del personaje siempre se orientará de forma automatizada hacia la posición relativa del oponente. Esto permite ejecutar repliegues tácticos (mantener bloqueo mientras se desplaza hacia atrás) sin exponer vulnerabilidades en el marco de colisión.
+1. **Navegación:** Utilice las teclas ++left++ / ++right++ para ciclar el índice del catálogo. El sistema cargará en pantalla el modelo bidimensional ejecutando su animación de reposo (Idle).
+2. **Telemetría del Perfil:** El panel adyacente expone el cuadro de "Datos del Luchador", incluyendo sinopsis y distribución de atributos.
+3. **Confirmación:** Oprima la tecla ++enter++ para bloquear la selección y despachar el comando de carga asíncrona hacia la escena de Batalla.
 
 ---
 
-## 4. Sistema de Combate y Habilidades
+## 3. Arquitectura de Entradas (Controles)
 
-Las mecánicas ofensivas y defensivas se rigen por un modelo de restricciones de cuadros de animación (frames) y gestión rigurosa del estado de los agentes.
+El motor lógico soporta entrada multiplexada local para dos operadores sobre el mismo hardware físico. Las tablas de asignación (Key Mappings) han sido distribuidas asimétricamente para evadir cuellos de botella en la matriz del teclado (Key Ghosting / N-Key Rollover).
 
-### Clasificación de Ataques
+=== "Jugador 1 (Vector Izquierdo)"
 
-1. **Ataque Primario:** Ejecución inmediata con un índice de recuperación bajo. Optimizado para aplicar presión inicial y pruebas de reflejo al adversario.
-2. **Ataque Secundario:** Exige un intervalo de preparación prologando, pero inflige daño drástico. Conlleva un alto riesgo de vulnerabilidad si el impacto fracasa.
-3. **Ataque Aéreo:** Despliega un vector de impulso frontal. Se ejecuta con la tecla de ataque rápido estrictamente antes del contacto con el suelo.
-4. **Ataque Agachado:** Golpe concebido para sortear bloqueos estáticos, alterando el vector central de colisión hacia una posición baja.
+    | Acción Descriptiva | Entrada Asignada |
+    |--------------------|:----------------:|
+    | Traslación Negativa (Izquierda) | ++a++ |
+    | Traslación Positiva (Derecha) | ++d++ |
+    | Vector de Salto (Vertical) | ++space++ |
+    | Cambio de Postura (Agacharse) | ++s++ |
+    | Ofensiva Rápida (Ataque Primario) | ++j++ |
+    | Ofensiva Pesada (Ataque Secundario)| ++k++ |
+    | Postura Defensiva (Bloqueo) | ++l++ |
 
-### Gestión de Defensa (Bloqueo)
+=== "Jugador 2 (Vector Derecho)"
 
-!!! abstract "Resolución de Colisiones Defensivas"
-    El ingreso al estado de bloqueo neutraliza el 100% del daño entrante y aplica una fuerza de repulsión (knockback) que fuerza el retroceso del atacante para restablecer la zona neutral. Asimismo, recompensa al defensor inyectando puntos adicionales a su barra de energía.
+    | Acción Descriptiva | Entrada Asignada |
+    |--------------------|:----------------:|
+    | Traslación Negativa (Izquierda) | ++left++ |
+    | Traslación Positiva (Derecha) | ++right++ |
+    | Vector de Salto (Vertical) | ++up++ |
+    | Cambio de Postura (Agacharse) | ++down++ |
+    | Ofensiva Rápida (Ataque Primario) | ++numpad-1++ |
+    | Ofensiva Pesada (Ataque Secundario)| ++numpad-2++ |
+    | Postura Defensiva (Bloqueo) | ++numpad-5++ |
 
-!!! warning "Exclusión Mutua de Estados"
-    El motor restringe las acciones simultáneas en conflicto. Es mecánicamente imposible mantener un estado de bloqueo mientras se inicia el ciclo temporal de un ataque ofensivo.
+!!! note "Variables Operativas Globales"
+    Las acciones avanzadas se derivan del estado posicional del avatar a través de un bus global de eventos:
+    
+    * **Ataque en Cuclillas:** Presionar ++q++ mientras se mantiene activa la entrada de Cambio de Postura.
+    * **Impacto Aéreo (Dash):** Presionar ++j++ durante los cuadros activos (frames) del vector de salto.
 
----
-
-## 5. Capacidades Especiales y de Consumo
-
-Cada perfil de combatiente ha sido dotado con la capacidad de ejecutar hasta **cuatro habilidades singulares**.
-
-La habilitación de estas rutinas está supeditada al recurso dinámico de **Energía**. Una vez que dicha variable cruza el umbral del 100%, el sistema activa visualmente la **Barra de Poderes** en la capa gráfica, confirmando la disponibilidad de las habilidades definitivas.
-
-De acuerdo con las definiciones de la clase del personaje, los poderes especiales ofrecen dos variables críticas:
-* Aplicación de daño escalar masivo al oponente, ignorando mitigaciones parciales.
-* Recuperación aritmética porcentual sobre los puntos de vitalidad (HP) del propio jugador, constituyendo la única mecánica de restauración habilitada dentro del sistema.
-
----
-
-## 6. Telemetría y HUD (Heads-Up Display)
-
-El HUD garantiza lectura en tiempo real del estado lógico de los recursos durante la sesión:
-
-| Indicador Gráfico | Comportamiento del Recurso | Condiciones Límite |
-|-------------------|----------------------------|--------------------|
-| **Puntos de Salud (HP)** | Inicia en valor base 100. Registra la pérdida de vitalidad ante daños exitosos. | Carece de factor regenerativo natural. Alcanzar un valor escalar de `0` fuerza la conclusión inmediata de la simulación. |
-| **Puntos de Energía (EP)**| Inicia en valor base 0. Acumulación progresiva por daño infligido, recibido y bloqueos correctos. | Límite máximo (Clamp) fijado en 100. Indispensable para desencadenar el llamado de habilidades definitivas. |
+!!! info "Comportamiento del Sistema de Orientación"
+    El modelo físico incluye auto-alineación direccional estricta. El vector frontal del personaje siempre interpolará de forma automática hacia el centro de gravedad del oponente. Esto autoriza maniobras de repliegue táctico (sostener la tecla de Bloqueo mientras se aplica traslación inversa) sin desproteger la matriz de colisión frontal.
 
 ---
 
-## 7. Interrupción de Ciclo y Configuración Dinámica
+## 4. Dinámica de Sistemas de Combate
 
-El usuario puede manipular la ejecución de la simulación a través del **Menú de Pausa**, invocable de manera inmediata vía la tecla **`Esc`** (Escape).
+El flujo de colisión (Combat Loop) es resuelto mediante el cruce algorítmico de cajas de impacto asimétricas (Hitboxes y Hurtboxes) calculadas frame por frame.
 
-Al interceptar este comando, el motor de físicas congela el paso del tiempo (`Time.timeScale = 0`). Las subrutinas habilitadas son:
-* **Reanudar:** Desbloquea la escala de tiempo y restablece el control del flujo físico.
-* **Opciones:** Interface integrada para el recálculo directo de decibeles de audio (SFX / Música), aplicando las transformaciones a los mezcladores sin destruir la sesión activa.
-* **Reiniciar Partida:** Purga las variables de estado e invoca una reinstanciación en limpio de la arena.
-* **Volver al Menú Principal:** Destruye el grafo actual de la escena y lanza el núcleo del frontend.
+### Vectores de Ofensiva
+
+Los métodos formales de agresión proporcionados al operador son:
+
+Ofensiva Rápida (Primaria)
+:   Tiempo de inicialización marginal (Startup), diseñado para interceptar rutinas adversarias. Produce un delta de daño menor pero garantiza una reincorporación inmediata a la posición de guardia.
+
+Ofensiva Pesada (Secundaria)
+:   Alta latencia de inicialización. Destinada estrictamente a penalizar ventanas de vulnerabilidad (Punish). Inflige daño masivo pero expone el cuerpo rígido del atacante ante una intercepción si no acierta.
+
+Modificador Aéreo
+:   Sobrescribe el vector de salto induciendo un desplazamiento horizontal forzado (Dash), proyectando el colisionador ofensivo hacia coordenadas medias antes de completar la rutina de aterrizaje.
+
+Modificador de Postura Baja
+:   Alteración ejecutada desde la variable "Agachado", la cual invierte el centro vertical del daño, ideal para sortear rutinas de defensa configuradas contra impactos superiores.
+
+### Protocolo de Defensa (Bloqueo)
+
+!!! success "Anulación de Daño por Bloqueo Exitoso"
+    Si el flag de Bloqueo resulta verdadero (`true`) durante el ciclo de impacto, el motor aplicará un coeficiente de daño escalar equivalente a cero (`0`). 
+    Adicionalmente, se despacha una fuerza física instantánea de repulsión (Knockback) sobre la entidad agresora, forzando la desestabilización de su cadena de ataque. En paralelo, el algoritmo inyecta puntos como recompensa en la telemetría del defensor.
+
+!!! warning "Restricción de Concurrencia (Máquina de Estados)"
+    El controlador de animaciones subyacente (Animator) es mutuamente excluyente. A nivel de kernel, un operador se encuentra inhabilitado para suscribirse al estado defensivo y emitir comandos ofensivos de forma simultánea.
 
 ---
 
-## 8. Directrices Óptimas de Resolución
+## 5. Habilidades Definitivas y Subsistema de Energía
 
-1. **Alineación Espacial (Spacing):** Los colisionadores de impacto (Hitboxes) operan mediante detecciones estrictas. Lanzar comandos fuera del vector efectivo anula toda posibilidad de validación de daño.
-2. **Compromiso de Animación:** Fallar un Ataque Secundario implica quedar anclado a la animación de recuperación, exponiendo su entidad (Hurtbox) a ataques ineludibles por un margen crítico de segundos.
-3. **Periodo de Invulnerabilidad (I-Frames):** Tras registrar una reducción exitosa en el HP, el sistema provee una breve exclusión de detección de daño para evitar algoritmos de combo infinito por asfixia recursiva.
-4. **Masa y Volúmenes Físicos:** Los avatares poseen propiedad rígida (Non-Trigger). Intentar rebasar el límite volumétrico del oponente mediante colisión frontal está inhabilitado, fomentando maniobras de encapsulamiento (acorralar en esquinas).
+Cada perfil de entidad ha sido programado con una matriz lógica que hospeda hasta **cuatro secuencias de Habilidades Definitivas (Ultimates)**.
+
+La autorización para disparar estas habilidades reside en la recolección del recurso **Energía (EP)**. Cuando el acumulador de EP quiebra el límite probabilístico (100%), el sistema inyecta sobre la interfaz gráfica el panel `Barra de Poderes`, liberando el seguro de las macros.
+
+Las macros ejecutadas varían según el identificador de clase del combatiente:
+* Procedimientos de daño destructivo e ineludible bajo ciertos parámetros espaciales.
+* Tareas asíncronas de sanación celular que escalan la variable estática de vida máxima, representando la única infraestructura regenerativa operativa del código base.
+
+---
+
+## 6. Telemetría y Monitoreo Lógico (HUD)
+
+La superposición HUD (Heads-Up Display) inyecta reportes gráficos paramétricos con una tasa de actualización paralela a la lógica del juego:
+
+| Módulo de Interfaz | Lógica Algorítmica Funcional | Excepción Crítica (Quiebre) |
+|--------------------|------------------------------|-----------------------------|
+| **Vitalidad (HP)** | Pila tipo entero con un umbral base de 100. Computa y sustrae paramétricamente los registros de daño validado. | El alcance del límite inferior `0` interrumpe en el acto el bucle lógico del motor, despachando el protocolo de "Derrota Absoluta". |
+| **Poder (EP)** | Pila inicializada en 0, restringida a un máximo absoluto de 100. Incrementa tras validación positiva de daños infligidos/recibidos y bloqueos perfectos. | La colisión de memoria con el tope 100 libera listeners en la interfaz de usuario para permitir el consumo del valor acumulado en macros de destrucción. |
+
+---
+
+## 7. Manejo de Interrupciones de Hilo de Ejecución
+
+El cliente final posee delegación de hardware para interrumpir el cálculo computacional de físicas en la arena pulsando la tecla de escape (`Esc`). Este macro altera la constante global de simulación.
+
+El panel de contingencias desplegado ofrece control sobre:
+* **Reanudar:** Desbloquea la manipulación temporal, reanudando las variables y permitiendo la ejecución escalar del framerate.
+* **Opciones:** Interface encapsulada para modificación estática del canal mezclador de Audio (Mixer), sin comprometer ni alterar la semilla aleatoria del combate.
+* **Reiniciar Partida:** Ordena un reseteo forzado de coordenadas y resetea las clases singleton de Vitalidad y Energía.
+* **Volver al Menú Principal:** Purga todos los objetos en RAM del espacio físico instanciado y retorna a la carga secuencial de la capa base del Lobby.
+
+---
+
+## 8. Principios Teóricos del Algoritmo de Duelo
+
+Para maximizar el rendimiento contra la matemática del sistema, asimile los siguientes parámetros invariables:
+
+1. **Gestión del Delta Espacial (Spacing y Hitboxes):** El algoritmo de impacto requiere intersección paramétrica pura. Ejecutar llamadas a la ofensiva en el vacío consume inútilmente la ventana de tiempo activo, reduciendo el DPS (Daño Por Segundo) a niveles improductivos.
+2. **Commitment (Compromiso de Cuadros):** Los ataques pesados no poseen capacidad de cancelación asíncrona. Fallar una colisión de impacto lo ancla en los cuadros de recuperación (Recovery Frames), marginando a su entidad (`Hurtbox`) sin recurso de intercepción.
+3. **Caché de Invulnerabilidad (I-Frames):** El procesamiento validado de un ataque hostil despierta una subrutina de inmunidad temporal, excluyendo al receptor de las máscaras de colisión para evitar errores de desbordamiento en cadenas de impacto recursivo (Combos Infinitos).
+4. **Masa Estricta y Bounding Boxes:** Las entidades interactúan como cuerpos rígidos sólidos (`Non-Trigger`). La evasión frontal es matemáticamente inviable, recompensando la táctica de restricción perimetral (Acorralamiento en las esquinas del área renderizada).
