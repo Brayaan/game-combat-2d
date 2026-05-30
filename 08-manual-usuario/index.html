@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#guia-operativa-del-sistema-user-manual" class="md-skip">
+        <a href="#manual-de-usuario" class="md-skip">
           Skip to content
         </a>
       
@@ -499,22 +499,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-interfaz-de-inicio-y-navegacion" class="md-nav__link">
+  <a href="#1-menu-principal" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Interfaz de Inicio y Navegación
+        1. Menú Principal
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Interfaz de Inicio y Navegación">
+    <nav class="md-nav" aria-label="1. Menú Principal">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#estructura-del-menu-principal" class="md-nav__link">
+  <a href="#opciones-de-navegacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Estructura del Menú Principal
+        Opciones de Navegación
       
     </span>
   </a>
@@ -527,10 +527,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-inicializacion-de-combate-seleccion-de-personajes" class="md-nav__link">
+  <a href="#2-seleccion-de-personajes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Inicialización de Combate (Selección de Personajes)
+        2. Selección de Personajes
       
     </span>
   </a>
@@ -538,10 +538,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-arquitectura-de-entradas-controles" class="md-nav__link">
+  <a href="#3-controles-del-juego" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Arquitectura de Entradas (Controles)
+        3. Controles del Juego
       
     </span>
   </a>
@@ -549,22 +549,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-dinamica-de-sistemas-de-combate" class="md-nav__link">
+  <a href="#4-sistema-de-combate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Dinámica de Sistemas de Combate
+        4. Sistema de Combate
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. Dinámica de Sistemas de Combate">
+    <nav class="md-nav" aria-label="4. Sistema de Combate">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#vectores-de-ofensiva" class="md-nav__link">
+  <a href="#tipos-de-ataque" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Vectores de Ofensiva
+        Tipos de Ataque
       
     </span>
   </a>
@@ -572,10 +572,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#protocolo-de-defensa-bloqueo" class="md-nav__link">
+  <a href="#defensa-y-bloqueo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Protocolo de Defensa (Bloqueo)
+        Defensa y Bloqueo
       
     </span>
   </a>
@@ -588,10 +588,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-habilidades-definitivas-y-subsistema-de-energia" class="md-nav__link">
+  <a href="#5-poderes-especiales" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Habilidades Definitivas y Subsistema de Energía
+        5. Poderes Especiales
       
     </span>
   </a>
@@ -599,10 +599,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-telemetria-y-monitoreo-logico-hud" class="md-nav__link">
+  <a href="#6-interfaz-del-jugador-hud" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Telemetría y Monitoreo Lógico (HUD)
+        6. Interfaz del Jugador (HUD)
       
     </span>
   </a>
@@ -610,10 +610,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-manejo-de-interrupciones-de-hilo-de-ejecucion" class="md-nav__link">
+  <a href="#7-pausa-y-opciones-de-partida" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Manejo de Interrupciones de Hilo de Ejecución
+        7. Pausa y Opciones de Partida
       
     </span>
   </a>
@@ -621,10 +621,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-principios-teoricos-del-algoritmo-de-duelo" class="md-nav__link">
+  <a href="#8-consejos-para-la-victoria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. Principios Teóricos del Algoritmo de Duelo
+        8. Consejos para la Victoria
       
     </span>
   </a>
@@ -845,84 +845,91 @@
 
 
 
-<h1 id="guia-operativa-del-sistema-user-manual">Guía Operativa del Sistema (User Manual)</h1>
+<h1 id="manual-de-usuario">Manual de Usuario</h1>
 <blockquote>
-<p>Documentación de usuario final referente a los esquemas de control, telemetría y reglas de interacción dentro de la plataforma Game Combat 2D.</p>
+<p>Bienvenidos a la guía oficial de Game Combat 2D. Este documento detalla todo lo que necesitas saber para dominar el sistema de juego, desde la navegación básica hasta las mecánicas avanzadas de combate.</p>
 </blockquote>
 <hr />
-<h2 id="1-interfaz-de-inicio-y-navegacion">1. Interfaz de Inicio y Navegación</h2>
-<p>Al inicializar el aplicativo, el cliente es recibido por la capa de presentación primaria (Menú Principal), la cual expone los flujos lógicos fundamentales del sistema.</p>
-<h3 id="estructura-del-menu-principal">Estructura del Menú Principal</h3>
+<h2 id="1-menu-principal">1. Menú Principal</h2>
+<p>Al iniciar el juego, accederás a la pantalla de inicio, la cual te permitirá configurar tu experiencia o saltar directamente a la acción.</p>
+<h3 id="opciones-de-navegacion">Opciones de Navegación</h3>
 <div class="grid cards">
 <ul>
 <li>
 <p><strong>Jugar</strong></p>
-<p>Inicializa el flujo de carga hacia la matriz de Selección de Entidades y, posteriormente, al entorno de combate físico.</p>
+<p>Te dirige a la pantalla de Selección de Personajes para comenzar una nueva partida.</p>
 </li>
 <li>
 <p><strong>Opciones</strong></p>
-<p>Despliega la consola de configuración de la sesión, que integra:</p>
+<p>Abre el panel de configuración del juego, donde encontrarás:</p>
 <ul>
-<li><strong>Tutorial (Mapeo Físico):</strong> Superposición de esquema en pantalla detallando la asignación de hardware.</li>
-<li><strong>Audio:</strong> Subsistema de mezcla para la ecualización logarítmica de los buses de <strong>Efectos de Sonido (SFX)</strong> y <strong>Banda Sonora</strong>.</li>
+<li><strong>Tutorial (Controles):</strong> Una guía visual rápida con la configuración de los controles.</li>
+<li><strong>Audio:</strong> Deslizadores interactivos para ajustar el volumen de la <strong>Música</strong> y los <strong>Efectos de Sonido (SFX)</strong> de forma independiente.</li>
 </ul>
 </li>
 <li>
 <p><strong>Salir</strong></p>
-<p>Envía la instrucción de terminación de proceso al sistema operativo.</p>
+<p>Cierra la aplicación de manera segura y regresa al escritorio.</p>
 </li>
 </ul>
 </div>
 <hr />
-<h2 id="2-inicializacion-de-combate-seleccion-de-personajes">2. Inicialización de Combate (Selección de Personajes)</h2>
-<p>Previo al acceso al entorno físico, los operadores deben seleccionar la entidad a instanciar en la sesión.</p>
-<p>El selector opera mediante una interfaz de rotación (carrusel) con validación en tiempo real:</p>
-<ol>
-<li><strong>Navegación:</strong> Utilice las teclas <span class="keys"><kbd class="key-arrow-left">Left</kbd></span> / <span class="keys"><kbd class="key-arrow-right">Right</kbd></span> para ciclar el índice del catálogo. El sistema cargará en pantalla el modelo bidimensional ejecutando su animación de reposo (Idle).</li>
-<li><strong>Telemetría del Perfil:</strong> El panel adyacente expone el cuadro de "Datos del Luchador", incluyendo sinopsis y distribución de atributos.</li>
-<li><strong>Confirmación:</strong> Oprima la tecla <span class="keys"><kbd class="key-enter">Enter</kbd></span> para bloquear la selección y despachar el comando de carga asíncrona hacia la escena de Batalla.</li>
-</ol>
+<h2 id="2-seleccion-de-personajes">2. Selección de Personajes</h2>
+<p>Antes de iniciar el combate, ambos jugadores deberán elegir a su luchador a través de un menú interactivo.</p>
+<ul>
+<li><strong>Navegación:</strong> Utiliza las flechas direccionales (Izquierda/Derecha) para desplazarte por la lista de personajes. Podrás ver una vista previa de su animación en el centro de la pantalla.</li>
+<li><strong>Información:</strong> En el panel lateral encontrarás los "Datos del Luchador", que incluyen una breve descripción de su estilo de combate.</li>
+<li><strong>Selección:</strong> Una vez que hayas elegido a tu luchador, presiona <strong>Enter</strong> para confirmar y pasar a la arena.</li>
+</ul>
 <hr />
-<h2 id="3-arquitectura-de-entradas-controles">3. Arquitectura de Entradas (Controles)</h2>
-<p>El motor lógico soporta entrada multiplexada local para dos operadores sobre el mismo hardware físico. Las tablas de asignación (Key Mappings) han sido distribuidas asimétricamente para evadir cuellos de botella en la matriz del teclado (Key Ghosting / N-Key Rollover).</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Jugador 1 (Vector Izquierdo)</label><label for="__tabbed_1_2">Jugador 2 (Vector Derecho)</label></div>
+<h2 id="3-controles-del-juego">3. Controles del Juego</h2>
+<p>El juego está diseñado para partidas multijugador locales, permitiendo que ambos jugadores compartan un mismo teclado.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Jugador 1</label><label for="__tabbed_1_2">Jugador 2</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
 <thead>
 <tr>
-<th>Acción Descriptiva</th>
-<th style="text-align: center;">Entrada Asignada</th>
+<th>Acción</th>
+<th style="text-align: center;">Tecla</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Traslación Negativa (Izquierda)</td>
-<td style="text-align: center;"><span class="keys"><kbd class="key-a">A</kbd></span></td>
+<td>Moverse a la Izquierda</td>
+<td style="text-align: center;"><code>A</code></td>
 </tr>
 <tr>
-<td>Traslación Positiva (Derecha)</td>
-<td style="text-align: center;"><span class="keys"><kbd class="key-d">D</kbd></span></td>
+<td>Moverse a la Derecha</td>
+<td style="text-align: center;"><code>D</code></td>
 </tr>
 <tr>
-<td>Vector de Salto (Vertical)</td>
-<td style="text-align: center;"><span class="keys"><kbd class="key-space">Space</kbd></span></td>
+<td>Saltar</td>
+<td style="text-align: center;"><code>Espacio</code></td>
 </tr>
 <tr>
-<td>Cambio de Postura (Agacharse)</td>
-<td style="text-align: center;"><span class="keys"><kbd class="key-s">S</kbd></span></td>
+<td>Agacharse</td>
+<td style="text-align: center;"><code>S</code></td>
 </tr>
 <tr>
-<td>Ofensiva Rápida (Ataque Primario)</td>
-<td style="text-align: center;"><span class="keys"><kbd class="key-j">J</kbd></span></td>
+<td>Ataque Rápido</td>
+<td style="text-align: center;"><code>J</code></td>
 </tr>
 <tr>
-<td>Ofensiva Pesada (Ataque Secundario)</td>
-<td style="text-align: center;"><span class="keys"><kbd class="key-k">K</kbd></span></td>
+<td>Ataque Fuerte</td>
+<td style="text-align: center;"><code>K</code></td>
 </tr>
 <tr>
-<td>Postura Defensiva (Bloqueo)</td>
-<td style="text-align: center;"><span class="keys"><kbd class="key-l">L</kbd></span></td>
+<td>Bloquear</td>
+<td style="text-align: center;"><code>L</code></td>
+</tr>
+<tr>
+<td>Ataque Agachado</td>
+<td style="text-align: center;"><code>Q</code> (mientras te agachas)</td>
+</tr>
+<tr>
+<td>Ataque Aéreo</td>
+<td style="text-align: center;"><code>J</code> (mientras saltas)</td>
 </tr>
 </tbody>
 </table>
@@ -931,128 +938,123 @@
 <table>
 <thead>
 <tr>
-<th>Acción Descriptiva</th>
-<th style="text-align: center;">Entrada Asignada</th>
+<th>Acción</th>
+<th style="text-align: center;">Tecla</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Traslación Negativa (Izquierda)</td>
-<td style="text-align: center;"><span class="keys"><kbd class="key-arrow-left">Left</kbd></span></td>
+<td>Moverse a la Izquierda</td>
+<td style="text-align: center;"><code>Flecha Izquierda</code></td>
 </tr>
 <tr>
-<td>Traslación Positiva (Derecha)</td>
-<td style="text-align: center;"><span class="keys"><kbd class="key-arrow-right">Right</kbd></span></td>
+<td>Moverse a la Derecha</td>
+<td style="text-align: center;"><code>Flecha Derecha</code></td>
 </tr>
 <tr>
-<td>Vector de Salto (Vertical)</td>
-<td style="text-align: center;"><span class="keys"><kbd class="key-arrow-up">Up</kbd></span></td>
+<td>Saltar</td>
+<td style="text-align: center;"><code>Flecha Arriba</code></td>
 </tr>
 <tr>
-<td>Cambio de Postura (Agacharse)</td>
-<td style="text-align: center;"><span class="keys"><kbd class="key-arrow-down">Down</kbd></span></td>
+<td>Agacharse</td>
+<td style="text-align: center;"><code>Flecha Abajo</code></td>
 </tr>
 <tr>
-<td>Ofensiva Rápida (Ataque Primario)</td>
-<td style="text-align: center;">++numpad-1++</td>
+<td>Ataque Rápido</td>
+<td style="text-align: center;"><code>Numpad 1</code></td>
 </tr>
 <tr>
-<td>Ofensiva Pesada (Ataque Secundario)</td>
-<td style="text-align: center;">++numpad-2++</td>
+<td>Ataque Fuerte</td>
+<td style="text-align: center;"><code>Numpad 2</code></td>
 </tr>
 <tr>
-<td>Postura Defensiva (Bloqueo)</td>
-<td style="text-align: center;">++numpad-5++</td>
+<td>Bloquear</td>
+<td style="text-align: center;"><code>Numpad 5</code></td>
+</tr>
+<tr>
+<td>Ataque Agachado</td>
+<td style="text-align: center;"><code>Q</code> (mientras te agachas)</td>
+</tr>
+<tr>
+<td>Ataque Aéreo</td>
+<td style="text-align: center;"><code>J</code> (mientras saltas)</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Variables Operativas Globales</p>
-<p>Las acciones avanzadas se derivan del estado posicional del avatar a través de un bus global de eventos:</p>
+<div class="admonition tip">
+<p class="admonition-title">Auto-Orientación</p>
+<p>Tu personaje siempre mirará automáticamente hacia tu oponente. Esto te permite retroceder de manera segura sin darle la espalda al enemigo, ideal para mantener la distancia mientras bloqueas.</p>
+</div>
+<hr />
+<h2 id="4-sistema-de-combate">4. Sistema de Combate</h2>
+<p>Para dominar la arena, es vital comprender cómo funcionan tus herramientas de ataque y defensa.</p>
+<h3 id="tipos-de-ataque">Tipos de Ataque</h3>
+<ol>
+<li><strong>Ataque Rápido:</strong> Un golpe veloz que causa daño moderado. Ideal para presionar al oponente o interrumpir sus movimientos, ya que te permite recuperarte casi de inmediato.</li>
+<li><strong>Ataque Fuerte:</strong> Un golpe devastador pero más lento. Úsalo con cuidado: si fallas, quedarás expuesto a un contraataque durante unos instantes.</li>
+<li><strong>Ataque Aéreo:</strong> Presiona el botón de ataque rápido mientras saltas para impulsarte hacia adelante y golpear desde el aire.</li>
+<li><strong>Ataque Agachado:</strong> Un golpe bajo sorpresivo diseñado para superar las defensas convencionales de tu oponente.</li>
+</ol>
+<h3 id="defensa-y-bloqueo">Defensa y Bloqueo</h3>
+<div class="admonition success">
+<p class="admonition-title">Ventajas del Bloqueo</p>
+<p>Al mantener presionado el botón de bloqueo en el momento exacto en que recibes un impacto:</p>
 <ul>
-<li><strong>Ataque en Cuclillas:</strong> Presionar <span class="keys"><kbd class="key-q">Q</kbd></span> mientras se mantiene activa la entrada de Cambio de Postura.</li>
-<li><strong>Impacto Aéreo (Dash):</strong> Presionar <span class="keys"><kbd class="key-j">J</kbd></span> durante los cuadros activos (frames) del vector de salto.</li>
+<li>Anularás por completo el daño recibido.</li>
+<li>Empujarás al atacante hacia atrás, ganando espacio.</li>
+<li>Recibirás energía adicional para tus ataques especiales.</li>
 </ul>
 </div>
-<div class="admonition info">
-<p class="admonition-title">Comportamiento del Sistema de Orientación</p>
-<p>El modelo físico incluye auto-alineación direccional estricta. El vector frontal del personaje siempre interpolará de forma automática hacia el centro de gravedad del oponente. Esto autoriza maniobras de repliegue táctico (sostener la tecla de Bloqueo mientras se aplica traslación inversa) sin desproteger la matriz de colisión frontal.</p>
-</div>
-<hr />
-<h2 id="4-dinamica-de-sistemas-de-combate">4. Dinámica de Sistemas de Combate</h2>
-<p>El flujo de colisión (Combat Loop) es resuelto mediante el cruce algorítmico de cajas de impacto asimétricas (Hitboxes y Hurtboxes) calculadas frame por frame.</p>
-<h3 id="vectores-de-ofensiva">Vectores de Ofensiva</h3>
-<p>Los métodos formales de agresión proporcionados al operador son:</p>
-<dl>
-<dt>Ofensiva Rápida (Primaria)</dt>
-<dd>Tiempo de inicialización marginal (Startup), diseñado para interceptar rutinas adversarias. Produce un delta de daño menor pero garantiza una reincorporación inmediata a la posición de guardia.</dd>
-<dt>Ofensiva Pesada (Secundaria)</dt>
-<dd>Alta latencia de inicialización. Destinada estrictamente a penalizar ventanas de vulnerabilidad (Punish). Inflige daño masivo pero expone el cuerpo rígido del atacante ante una intercepción si no acierta.</dd>
-<dt>Modificador Aéreo</dt>
-<dd>Sobrescribe el vector de salto induciendo un desplazamiento horizontal forzado (Dash), proyectando el colisionador ofensivo hacia coordenadas medias antes de completar la rutina de aterrizaje.</dd>
-<dt>Modificador de Postura Baja</dt>
-<dd>Alteración ejecutada desde la variable "Agachado", la cual invierte el centro vertical del daño, ideal para sortear rutinas de defensa configuradas contra impactos superiores.</dd>
-</dl>
-<h3 id="protocolo-de-defensa-bloqueo">Protocolo de Defensa (Bloqueo)</h3>
-<div class="admonition success">
-<p class="admonition-title">Anulación de Daño por Bloqueo Exitoso</p>
-<p>Si el flag de Bloqueo resulta verdadero (<code>true</code>) durante el ciclo de impacto, el motor aplicará un coeficiente de daño escalar equivalente a cero (<code>0</code>). 
-Adicionalmente, se despacha una fuerza física instantánea de repulsión (Knockback) sobre la entidad agresora, forzando la desestabilización de su cadena de ataque. En paralelo, el algoritmo inyecta puntos como recompensa en la telemetría del defensor.</p>
-</div>
 <div class="admonition warning">
-<p class="admonition-title">Restricción de Concurrencia (Máquina de Estados)</p>
-<p>El controlador de animaciones subyacente (Animator) es mutuamente excluyente. A nivel de kernel, un operador se encuentra inhabilitado para suscribirse al estado defensivo y emitir comandos ofensivos de forma simultánea.</p>
+<p class="admonition-title">Acciones Simultáneas</p>
+<p>No es posible atacar y bloquear al mismo tiempo. Debes elegir sabiamente cuándo mantener la guardia y cuándo pasar a la ofensiva.</p>
 </div>
 <hr />
-<h2 id="5-habilidades-definitivas-y-subsistema-de-energia">5. Habilidades Definitivas y Subsistema de Energía</h2>
-<p>Cada perfil de entidad ha sido programado con una matriz lógica que hospeda hasta <strong>cuatro secuencias de Habilidades Definitivas (Ultimates)</strong>.</p>
-<p>La autorización para disparar estas habilidades reside en la recolección del recurso <strong>Energía (EP)</strong>. Cuando el acumulador de EP quiebra el límite probabilístico (100%), el sistema inyecta sobre la interfaz gráfica el panel <code>Barra de Poderes</code>, liberando el seguro de las macros.</p>
-<p>Las macros ejecutadas varían según el identificador de clase del combatiente:
-* Procedimientos de daño destructivo e ineludible bajo ciertos parámetros espaciales.
-* Tareas asíncronas de sanación celular que escalan la variable estática de vida máxima, representando la única infraestructura regenerativa operativa del código base.</p>
+<h2 id="5-poderes-especiales">5. Poderes Especiales</h2>
+<p>Cada personaje cuenta con hasta <strong>cuatro habilidades especiales</strong> que pueden cambiar el curso de la batalla.</p>
+<p>Estas habilidades consumen <strong>Energía</strong>. Una vez que tu barra de energía alcance su nivel máximo, aparecerá en pantalla la <strong>Barra de Poderes</strong>, indicando que estás listo para desatar tus habilidades definitivas.</p>
+<p>Dependiendo de tu personaje, los poderes pueden:
+* Causar daño masivo que no puede ser bloqueado de forma convencional.
+* Curar una porción de tu salud (esta es la única forma de recuperar puntos de vida en el juego).</p>
 <hr />
-<h2 id="6-telemetria-y-monitoreo-logico-hud">6. Telemetría y Monitoreo Lógico (HUD)</h2>
-<p>La superposición HUD (Heads-Up Display) inyecta reportes gráficos paramétricos con una tasa de actualización paralela a la lógica del juego:</p>
+<h2 id="6-interfaz-del-jugador-hud">6. Interfaz del Jugador (HUD)</h2>
+<p>Durante el combate, tendrás dos indicadores principales en la parte superior de la pantalla:</p>
 <table>
 <thead>
 <tr>
-<th>Módulo de Interfaz</th>
-<th>Lógica Algorítmica Funcional</th>
-<th>Excepción Crítica (Quiebre)</th>
+<th>Indicador</th>
+<th>Funcionamiento</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Vitalidad (HP)</strong></td>
-<td>Pila tipo entero con un umbral base de 100. Computa y sustrae paramétricamente los registros de daño validado.</td>
-<td>El alcance del límite inferior <code>0</code> interrumpe en el acto el bucle lógico del motor, despachando el protocolo de "Derrota Absoluta".</td>
+<td><strong>Salud (HP)</strong></td>
+<td>Comienzas con 100 puntos. La salud disminuye al recibir golpes y no se regenera sola. Si la barra llega a 0, pierdes la partida.</td>
 </tr>
 <tr>
-<td><strong>Poder (EP)</strong></td>
-<td>Pila inicializada en 0, restringida a un máximo absoluto de 100. Incrementa tras validación positiva de daños infligidos/recibidos y bloqueos perfectos.</td>
-<td>La colisión de memoria con el tope 100 libera listeners en la interfaz de usuario para permitir el consumo del valor acumulado en macros de destrucción.</td>
+<td><strong>Energía (EP)</strong></td>
+<td>Comienzas en 0 y se llena gradualmente al acertar golpes, recibir daño o bloquear ataques correctamente. Al llegar a 100, puedes usar tus poderes especiales.</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="7-manejo-de-interrupciones-de-hilo-de-ejecucion">7. Manejo de Interrupciones de Hilo de Ejecución</h2>
-<p>El cliente final posee delegación de hardware para interrumpir el cálculo computacional de físicas en la arena pulsando la tecla de escape (<code>Esc</code>). Este macro altera la constante global de simulación.</p>
-<p>El panel de contingencias desplegado ofrece control sobre:
-* <strong>Reanudar:</strong> Desbloquea la manipulación temporal, reanudando las variables y permitiendo la ejecución escalar del framerate.
-* <strong>Opciones:</strong> Interface encapsulada para modificación estática del canal mezclador de Audio (Mixer), sin comprometer ni alterar la semilla aleatoria del combate.
-* <strong>Reiniciar Partida:</strong> Ordena un reseteo forzado de coordenadas y resetea las clases singleton de Vitalidad y Energía.
-* <strong>Volver al Menú Principal:</strong> Purga todos los objetos en RAM del espacio físico instanciado y retorna a la carga secuencial de la capa base del Lobby.</p>
+<h2 id="7-pausa-y-opciones-de-partida">7. Pausa y Opciones de Partida</h2>
+<p>En cualquier momento de la pelea, puedes presionar la tecla <strong><code>Esc</code></strong> para abrir el menú de pausa y detener la acción. </p>
+<p>Desde este menú, podrás:
+* <strong>Reanudar:</strong> Volver inmediatamente al combate.
+* <strong>Opciones:</strong> Ajustar el volumen de la música y los efectos de sonido sin salir de la pelea.
+* <strong>Reiniciar Partida:</strong> Empezar una nueva ronda desde cero con toda la salud y energía restauradas.
+* <strong>Volver al Menú Principal:</strong> Abandonar la partida y regresar a la pantalla de inicio.</p>
 <hr />
-<h2 id="8-principios-teoricos-del-algoritmo-de-duelo">8. Principios Teóricos del Algoritmo de Duelo</h2>
-<p>Para maximizar el rendimiento contra la matemática del sistema, asimile los siguientes parámetros invariables:</p>
+<h2 id="8-consejos-para-la-victoria">8. Consejos para la Victoria</h2>
 <ol>
-<li><strong>Gestión del Delta Espacial (Spacing y Hitboxes):</strong> El algoritmo de impacto requiere intersección paramétrica pura. Ejecutar llamadas a la ofensiva en el vacío consume inútilmente la ventana de tiempo activo, reduciendo el DPS (Daño Por Segundo) a niveles improductivos.</li>
-<li><strong>Commitment (Compromiso de Cuadros):</strong> Los ataques pesados no poseen capacidad de cancelación asíncrona. Fallar una colisión de impacto lo ancla en los cuadros de recuperación (Recovery Frames), marginando a su entidad (<code>Hurtbox</code>) sin recurso de intercepción.</li>
-<li><strong>Caché de Invulnerabilidad (I-Frames):</strong> El procesamiento validado de un ataque hostil despierta una subrutina de inmunidad temporal, excluyendo al receptor de las máscaras de colisión para evitar errores de desbordamiento en cadenas de impacto recursivo (Combos Infinitos).</li>
-<li><strong>Masa Estricta y Bounding Boxes:</strong> Las entidades interactúan como cuerpos rígidos sólidos (<code>Non-Trigger</code>). La evasión frontal es matemáticamente inviable, recompensando la táctica de restricción perimetral (Acorralamiento en las esquinas del área renderizada).</li>
+<li><strong>Controla la Distancia:</strong> Asegúrate de estar lo suficientemente cerca antes de lanzar un ataque. Golpear al aire te dejará vulnerable.</li>
+<li><strong>No Presiones Botones al Azar:</strong> Cada ataque lleva tiempo. Si fallas un ataque fuerte, tu oponente tendrá tiempo de sobra para castigarte.</li>
+<li><strong>Aprovecha la Invulnerabilidad:</strong> Si recibes un golpe, tu personaje parpadeará y será invulnerable por un breve instante. Usa este tiempo para escapar o reubicarte.</li>
+<li><strong>Usa el Entorno:</strong> Los personajes no pueden atravesarse. Usa esto a tu favor para acorralar a tu oponente contra las esquinas del escenario y limitar sus opciones de escape.</li>
 </ol>
 
 
