@@ -66,6 +66,7 @@ nav:
   - Game Rules: 05-game-rules.md
   - UI System: 06-ui-system.md
   - Game Behavior: 07-game-behavior.md
+  - Manual de Usuario: 08-manual-usuario.md
 
 extra_css:
   - stylesheets/extra.css
