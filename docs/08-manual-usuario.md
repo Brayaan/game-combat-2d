@@ -1,120 +1,145 @@
-# 🎮 Manual de Usuario: Game Combat 2D
+# Manual de Usuario
 
-¡Bienvenido a **Game Combat 2D**! Este es un juego de peleas 1 contra 1 enfocado en la habilidad, los reflejos y el control del espacio. 
-Aquí no hay suerte ni ventajas aleatorias: cada victoria es resultado directo de tu estrategia.
-
----
-
-## 🏠 1. Menú Principal
-
-Al iniciar el juego, te encontrarás con el Menú Principal, donde podrás acceder a las siguientes opciones:
-- **Jugar:** Inicia una nueva partida y te lleva a la pantalla de selección de personajes.
-- **Opciones:** Abre un panel de configuración donde puedes:
-  - **Tutorial (Controles):** Ver una guía visual en pantalla con todos los controles del juego.
-  - **Audio:** Ajustar de forma independiente el Volumen de la Música y los Efectos de Sonido (SFX).
-- **Salir:** Cierra el juego de forma segura.
+> Guía técnica y operativa para la configuración, controles y mecánicas de Game Combat 2D.
 
 ---
 
-## 👥 2. Selección de Personajes
+## 1. Menú Principal y Opciones
 
-Antes de entrar a la arena, pasarás por la **Pantalla de Selección de Personajes**:
-- Usa las **Flechas Izquierda y Derecha** para navegar por el carrusel de luchadores.
-- Podrás ver la animación de cada personaje y sus **Datos de Luchador**.
-- Presiona **Enter** para seleccionar a tu luchador y comenzar la batalla.
+Al inicializar el juego, el sistema presenta la pantalla de **Menú Principal**, diseñada para ofrecer acceso estructurado a la configuración y al inicio de las partidas.
 
----
+### Estructura de Navegación
 
-## 🕹️ 3. Controles del Juego
+<div class="grid cards" markdown>
 
-El juego está diseñado para jugarse de forma local (dos jugadores en un mismo teclado). Asegúrate de estar cómodo antes de iniciar el combate.
+- **Jugar**
+    
+    Inicia el flujo lógico hacia la interfaz de selección de personaje y transiciona posteriormente a la arena de combate.
 
-### Jugador 1 (Izquierda)
-| Acción | Tecla |
-|--------|-------|
-| ⬅️ Mover Izquierda | `A` |
-| ➡️ Mover Derecha | `D` |
-| ⬆️ Saltar | `Espacio` |
-| ⬇️ Agacharse | `S` |
-| 🥊 Ataque Rápido | `J` |
-| 🦵 Ataque Fuerte | `K` |
-| 🛡️ Bloquear | `L` |
-| 🗡️ Ataque Agachado | `Q` (mientras te agachas) |
-| 🦅 Ataque Aéreo | `J` (mientras saltas) |
+- **Opciones**
+    
+    Abre el panel de configuración extendida, el cual contiene las siguientes subsecciones:
+    
+    * **Tutorial (Controles):** Despliega una referencia esquemática sobre la asignación de hardware.
+    * **Audio:** Permite ajustar de forma independiente los niveles logarítmicos de Volumen de Música y Efectos de Sonido (SFX) mediante deslizadores interactivos.
 
-### Jugador 2 (Derecha)
-| Acción | Tecla |
-|--------|-------|
-| ⬅️ Mover Izquierda | `Flecha Izquierda` |
-| ➡️ Mover Derecha | `Flecha Derecha` |
-| ⬆️ Saltar | `Flecha Arriba` |
-| ⬇️ Agacharse | `Flecha Abajo` |
-| 🥊 Ataque Rápido | `Numpad 1` |
-| 🦵 Ataque Fuerte | `Numpad 2` |
-| 🛡️ Bloquear | `Numpad 5` |
-| 🗡️ Ataque Agachado | `Q` (mientras te agachas) |
-| 🦅 Ataque Aéreo | `J` (mientras saltas)* |
+- **Salir**
+    
+    Finaliza el proceso en ejecución y cierra la aplicación de forma segura.
 
-*(Nota: Algunas teclas de ataques avanzados como la `Q` y la `J` pueden ser compartidas según la configuración del teclado)*
-
-> [!TIP]
-> **Movimiento táctico:** Tu personaje siempre mirará automáticamente hacia tu oponente. Además, puedes moverte mientras mantienes presionado el botón de bloqueo, ¡ideal para retroceder de forma segura!
+</div>
 
 ---
 
-## ⚔️ 4. Sistema de Combate y Poderes Especiales
+## 2. Selección de Personajes
 
-Para dominar la arena, debes entender tus herramientas de ataque y defensa:
+La antesala al combate consiste en una interfaz de carrusel rotativo que expone la lista de combatientes disponibles en el sistema.
 
-### Ataques Básicos y Avanzados
-- **🥊 Ataque Primario (Rápido):** Daño bajo. Rápido de ejecutar y te recuperas rápido. Ideal para presionar.
-- **🦵 Ataque Secundario (Fuerte):** Daño alto. Tarda un poco más en salir y te deja vulnerable si fallas.
-- **🦅 Ataque Aéreo:** Al presionar ataque mientras estás en el aire, te impulsarás hacia adelante para golpear con mayor alcance.
-- **🗡️ Ataque Agachado:** Un golpe sorpresa desde el suelo, útil para variar tu ofensiva cuando el oponente no lo espera.
-
-### 🛡️ Defensa y Bloqueo
-El bloqueo es una herramienta activa muy poderosa. Si logras bloquear el ataque de tu oponente:
-1. **No recibes daño.**
-2. **Empujas al atacante hacia atrás**, quitándole el control de la posición.
-3. Ganas energía por defenderte bien.
-
-> [!WARNING]
-> ¡No puedes atacar y bloquear a la vez! Cada acción lleva su tiempo y no puedes interrumpirla una vez iniciada.
-
-### ✨ Poderes Especiales
-Tu personaje cuenta con hasta **4 ataques especiales únicos**.
-- Cada especial requiere un **costo de energía** específico.
-- Cuando tu barra de energía se llena, aparecerá en pantalla la **Barra de Poderes**, indicando que estás listo para desatar tus mejores habilidades.
-- Dependiendo de tu personaje, los especiales pueden hacer un gran daño o incluso **curar parte de tu salud**.
+* **Navegación de Entidades:** Utilice las **Flechas Direccionales (Izquierda/Derecha)** para ciclar entre los personajes. El personaje central representa la selección activa y muestra de inmediato su animación en estado de reposo (Idle).
+* **Confirmación de Selección:** Presione la tecla **Enter** para fijar su selección e inicializar los parámetros de la arena de combate.
+* **Telemetría:** En pantalla se despliegan los atributos y la descripción técnica del combatiente ("Datos del Luchador").
 
 ---
 
-## ❤️ 5. Interfaz de Jugador (HUD)
+## 3. Asignación de Controles
 
-En la pantalla verás dos barras clave para tu supervivencia:
+La arquitectura del juego soporta multijugador local simultáneo en un solo teclado (PvP). El mapa de entradas ha sido segregado en dos perfiles independientes para mitigar el efecto de saturación (ghosting) del teclado.
 
-- **Barra de Salud (HP):** Empiezas con 100 puntos. ¡Cuidado! **La salud no se regenera** por sí sola (a menos que uses un poder especial curativo). El combate termina inmediatamente cuando la salud de un jugador llega a 0.
-- **Barra de Energía:** Inicia en 0 y se llena hasta 100 conforme peleas. Ganas energía al acertar golpes, bloquear ataques e incluso al recibir daño. Úsala sabiamente para ejecutar tus poderes especiales.
+=== "Jugador 1"
+
+    | Acción de Control | Tecla Asignada |
+    |-------------------|:--------------:|
+    | Desplazamiento Izquierda | `A` |
+    | Desplazamiento Derecha | `D` |
+    | Salto Vertical | `Espacio` |
+    | Agacharse | `S` |
+    | Ataque Primario (Rápido) | `J` |
+    | Ataque Secundario (Fuerte)| `K` |
+    | Bloqueo / Defensa Activa | `L` |
+    | Ataque en Cuclillas | `Q` (manteniendo la posición agachada) |
+    | Ataque Aéreo con Impulso | `J` (durante la ventana de salto) |
+
+=== "Jugador 2"
+
+    | Acción de Control | Tecla Asignada |
+    |-------------------|:--------------:|
+    | Desplazamiento Izquierda | `Flecha Izquierda` |
+    | Desplazamiento Derecha | `Flecha Derecha` |
+    | Salto Vertical | `Flecha Arriba` |
+    | Agacharse | `Flecha Abajo` |
+    | Ataque Primario (Rápido) | `Numpad 1` |
+    | Ataque Secundario (Fuerte)| `Numpad 2` |
+    | Bloqueo / Defensa Activa | `Numpad 5` |
+    | Ataque en Cuclillas | `Q` (manteniendo la posición agachada) * |
+    | Ataque Aéreo con Impulso | `J` (durante la ventana de salto) * |
+
+    !!! note "Mapeo global de ataques avanzados"
+        Para la iteración técnica actual, las entradas secundarias de ataques en cuclillas y aéreos operan de forma global. Verifique la compatibilidad de *Key Rollover* de su teclado para ejecuciones simultáneas.
+
+!!! info "Comportamiento del Sistema de Auto-Orientación"
+    El modelo físico incluye alineación direccional estricta. El vector frontal del personaje siempre se orientará de forma automatizada hacia la posición relativa del oponente. Esto permite ejecutar repliegues tácticos (mantener bloqueo mientras se desplaza hacia atrás) sin exponer vulnerabilidades en el marco de colisión.
 
 ---
 
-## ⚙️ 6. Pausa y Opciones
+## 4. Sistema de Combate y Habilidades
 
-En cualquier momento durante la pelea, puedes presionar la tecla **`Escape (Esc)`** para abrir el **Menú de Pausa**. Desde aquí podrás:
-- **Reanudar** la partida (la pelea se congela mientras estás en el menú).
-- Entrar a **Opciones** para ajustar el **Volumen de la Música** y los **Efectos de Sonido (SFX)**.
-- **Reiniciar** la partida inmediatamente para la revancha.
-- Volver al **Menú Principal**.
+Las mecánicas ofensivas y defensivas se rigen por un modelo de restricciones de cuadros de animación (frames) y gestión rigurosa del estado de los agentes.
+
+### Clasificación de Ataques
+
+1. **Ataque Primario:** Ejecución inmediata con un índice de recuperación bajo. Optimizado para aplicar presión inicial y pruebas de reflejo al adversario.
+2. **Ataque Secundario:** Exige un intervalo de preparación prologando, pero inflige daño drástico. Conlleva un alto riesgo de vulnerabilidad si el impacto fracasa.
+3. **Ataque Aéreo:** Despliega un vector de impulso frontal. Se ejecuta con la tecla de ataque rápido estrictamente antes del contacto con el suelo.
+4. **Ataque Agachado:** Golpe concebido para sortear bloqueos estáticos, alterando el vector central de colisión hacia una posición baja.
+
+### Gestión de Defensa (Bloqueo)
+
+!!! abstract "Resolución de Colisiones Defensivas"
+    El ingreso al estado de bloqueo neutraliza el 100% del daño entrante y aplica una fuerza de repulsión (knockback) que fuerza el retroceso del atacante para restablecer la zona neutral. Asimismo, recompensa al defensor inyectando puntos adicionales a su barra de energía.
+
+!!! warning "Exclusión Mutua de Estados"
+    El motor restringe las acciones simultáneas en conflicto. Es mecánicamente imposible mantener un estado de bloqueo mientras se inicia el ciclo temporal de un ataque ofensivo.
 
 ---
 
-## 📜 7. Reglas de Oro para Ganar
+## 5. Capacidades Especiales y de Consumo
 
-Para convertirte en un experto, ten en cuenta estas mecánicas ocultas pero esenciales:
+Cada perfil de combatiente ha sido dotado con la capacidad de ejecutar hasta **cuatro habilidades singulares**.
 
-1. **La distancia lo es todo:** Si lanzas un ataque y no estás lo suficientemente cerca, no harás daño aunque parezca rozar al oponente.
-2. **Evita machacar botones:** Solo puedes lanzar un ataque a la vez. Si fallas un ataque fuerte, estarás expuesto hasta que termine la animación.
-3. **El tiempo de inmunidad:** Si recibes un golpe, serás invulnerable por un breve instante. Esto evita que te atrapen en una ráfaga infinita de golpes.
-4. **Respeta el espacio:** Los personajes no pueden atravesarse entre sí. Usa esto para acorralar a tu oponente contra las esquinas.
+La habilitación de estas rutinas está supeditada al recurso dinámico de **Energía**. Una vez que dicha variable cruza el umbral del 100%, el sistema activa visualmente la **Barra de Poderes** en la capa gráfica, confirmando la disponibilidad de las habilidades definitivas.
 
-¡Prepárate, elige a tu luchador y demuestra quién es el mejor en la arena! 🏆
+De acuerdo con las definiciones de la clase del personaje, los poderes especiales ofrecen dos variables críticas:
+* Aplicación de daño escalar masivo al oponente, ignorando mitigaciones parciales.
+* Recuperación aritmética porcentual sobre los puntos de vitalidad (HP) del propio jugador, constituyendo la única mecánica de restauración habilitada dentro del sistema.
+
+---
+
+## 6. Telemetría y HUD (Heads-Up Display)
+
+El HUD garantiza lectura en tiempo real del estado lógico de los recursos durante la sesión:
+
+| Indicador Gráfico | Comportamiento del Recurso | Condiciones Límite |
+|-------------------|----------------------------|--------------------|
+| **Puntos de Salud (HP)** | Inicia en valor base 100. Registra la pérdida de vitalidad ante daños exitosos. | Carece de factor regenerativo natural. Alcanzar un valor escalar de `0` fuerza la conclusión inmediata de la simulación. |
+| **Puntos de Energía (EP)**| Inicia en valor base 0. Acumulación progresiva por daño infligido, recibido y bloqueos correctos. | Límite máximo (Clamp) fijado en 100. Indispensable para desencadenar el llamado de habilidades definitivas. |
+
+---
+
+## 7. Interrupción de Ciclo y Configuración Dinámica
+
+El usuario puede manipular la ejecución de la simulación a través del **Menú de Pausa**, invocable de manera inmediata vía la tecla **`Esc`** (Escape).
+
+Al interceptar este comando, el motor de físicas congela el paso del tiempo (`Time.timeScale = 0`). Las subrutinas habilitadas son:
+* **Reanudar:** Desbloquea la escala de tiempo y restablece el control del flujo físico.
+* **Opciones:** Interface integrada para el recálculo directo de decibeles de audio (SFX / Música), aplicando las transformaciones a los mezcladores sin destruir la sesión activa.
+* **Reiniciar Partida:** Purga las variables de estado e invoca una reinstanciación en limpio de la arena.
+* **Volver al Menú Principal:** Destruye el grafo actual de la escena y lanza el núcleo del frontend.
+
+---
+
+## 8. Directrices Óptimas de Resolución
+
+1. **Alineación Espacial (Spacing):** Los colisionadores de impacto (Hitboxes) operan mediante detecciones estrictas. Lanzar comandos fuera del vector efectivo anula toda posibilidad de validación de daño.
+2. **Compromiso de Animación:** Fallar un Ataque Secundario implica quedar anclado a la animación de recuperación, exponiendo su entidad (Hurtbox) a ataques ineludibles por un margen crítico de segundos.
+3. **Periodo de Invulnerabilidad (I-Frames):** Tras registrar una reducción exitosa en el HP, el sistema provee una breve exclusión de detección de daño para evitar algoritmos de combo infinito por asfixia recursiva.
+4. **Masa y Volúmenes Físicos:** Los avatares poseen propiedad rígida (Non-Trigger). Intentar rebasar el límite volumétrico del oponente mediante colisión frontal está inhabilitado, fomentando maniobras de encapsulamiento (acorralar en esquinas).
