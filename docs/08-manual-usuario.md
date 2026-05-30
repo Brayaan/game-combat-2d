@@ -89,6 +89,20 @@ Para dominar la arena, es vital comprender cómo funcionan tus herramientas de a
 3. **Ataque Aéreo:** Presiona el botón de ataque rápido mientras saltas para impulsarte hacia adelante y golpear desde el aire.
 4. **Ataque Agachado:** Un golpe bajo sorpresivo diseñado para superar las defensas convencionales de tu oponente.
 
+### Flujo Táctico (Máquina de Estados)
+
+```mermaid
+graph TD
+    A[Estado Base: Reposo / Moviéndose] -->|Presionar Tecla de Ataque| B(Ejecutando Animación)
+    B -->|Impacto en el Oponente| C{¿El oponente mantiene Bloqueo?}
+    C -->|Sí| D[Bloqueo Exitoso: Daño Anulado]
+    C -->|No| E[Impacto Crítico: Daño Aplicado]
+    D -->|Rechazo Físico| F[El Atacante es empujado hacia atrás]
+    E -->|Invulnerabilidad Breve| G[El Oponente parpadea para no recibir daño doble]
+    F --> A
+    G --> A
+```
+
 ### Defensa y Bloqueo
 
 !!! success "Ventajas del Bloqueo"
@@ -119,10 +133,10 @@ Dependiendo de tu personaje, los poderes pueden:
 
 Durante el combate, tendrás dos indicadores principales en la parte superior de la pantalla:
 
-| Indicador | Funcionamiento |
-|-----------|----------------|
-| **Salud (HP)** | Comienzas con 100 puntos. La salud disminuye al recibir golpes y no se regenera sola. Si la barra llega a 0, pierdes la partida. |
-| **Energía (EP)** | Comienzas en 0 y se llena gradualmente al acertar golpes, recibir daño o bloquear ataques correctamente. Al llegar a 100, puedes usar tus poderes especiales. |
+| Indicador | Vista Previa | Funcionamiento |
+|-----------|:------------:|----------------|
+| **Salud (HP)** | <img src="../images/heart_counter-Sheet.png" width="50" style="image-rendering: pixelated;"> | Comienzas con 100 puntos. La salud disminuye al recibir golpes y no se regenera sola. Si la barra llega a 0, pierdes la partida. |
+| **Energía (EP)** | <img src="../images/emerald_counter-Sheet.png" width="50" style="image-rendering: pixelated;"> | Comienzas en 0 y se llena gradualmente al acertar golpes, recibir daño o bloquear ataques correctamente. Al llegar a 100, puedes usar tus poderes especiales. |
 
 ---
 

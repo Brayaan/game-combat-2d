@@ -1,77 +1,35 @@
-# Game Combat 2D
-
-> Documento de Diseño Técnico · Sistema de combate 1v1 en tiempo real · v1.0
-
+---
+hide:
+  - navigation
+  - toc
 ---
 
-## Visión general
+# ⚔️ Bienvenido a Game Combat 2D
 
-Game Combat 2D es un sistema de combate en tiempo real construido para partidas locales de dos jugadores. El diseño se fundamenta en tres invariantes: **condiciones iniciales iguales**, **mecánicas basadas en reacción** y **el control espacial como recurso**.
+<div align="center" style="margin: 3rem 0;">
+  <img src="images/logo.png" alt="Game Logo" width="220" style="border-radius: 20px; box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); margin-bottom: 2rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+  
+  <p style="font-size: 1.3rem; color: #a48fff; max-width: 600px; margin: 0 auto; line-height: 1.6;">El motor definitivo de peleas 2D. Una experiencia multijugador local diseñada para ser rápida, táctica y brutal.</p>
+</div>
 
-No existen ventajas estadísticas, no hay resultados aleatorios y no hay modificadores de progresión. Cada resultado es la consecuencia directa de una decisión del jugador.
-
----
-
-## Sistemas
+<br>
 
 <div class="grid cards" markdown>
 
-- **Controles**
+-   :material-book-open-page-variant: **[Manual del Jugador](08-manual-usuario.md)**
 
-    Esquema de teclado compartido para dos jugadores. Movimiento, ataques, agacharse y bloqueo.
+    Aprende las mecánicas, estrategias y cómo dominar la arena. Todo lo que necesitas para ganar está aquí.
 
-    [Ver controles](01-controls.md)
+-   :material-gamepad-variant: **[Controles Básicos](01-controls.md)**
 
-- **Sistema de combate**
+    Domina el teclado. Descubre cómo moverte, esquivar y desatar combos con tus poderes especiales.
 
-    Ataques primarios y secundarios, bloqueo activo, retroceso (knockback) y ventanas de impacto.
+-   :material-sword-cross: **[Sistema de Combate](02-combat-system.md)**
 
-    [Ver sistema de combate](02-combat-system.md)
+    Conoce las reglas técnicas: hitboxes, frames de invulnerabilidad y el cálculo de daño interno.
 
-- **Sistema de salud**
+-   :material-github: **[Repositorio Oficial](https://github.com/Brayaan/game-combat-2d)**
 
-    HP inicial, daño por tipo de ataque, invulnerabilidad temporal y condición de derrota.
-
-    [Ver sistema de salud](03-health-system.md)
-
-- **Sistema de energía**
-
-    Recurso acumulativo generado por la interacción en combate. Diseñado para uso futuro.
-
-    [Ver sistema de energía](04-energy-system.md)
-
-- **Reglas del juego**
-
-    Las seis reglas principales que definen el comportamiento a nivel de sistema.
-
-    [Ver reglas del juego](05-game-rules.md)
-
-- **Sistema de UI**
-
-    Barras de salud y energía en tiempo real para ambos jugadores.
-
-    [Ver sistema de UI](06-ui-system.md)
+    Explora el código fuente, reporta errores o aporta tus propias ideas al desarrollo del proyecto.
 
 </div>
-
----
-
-## Estado del sistema
-
-| Sistema | Estado |
-|--------|--------|
-| Movimiento y controles | Implementado |
-| Ataque primario | Implementado |
-| Ataque secundario | Implementado |
-| Sistema de bloqueo | Implementado |
-| Retroceso (knockback) | Implementado |
-| Sistema de salud | Implementado |
-| Sistema de energía | Implementado — sin uso activo |
-| HUD | Implementado |
-
----
-
-## Condición de victoria
-
-!!! success "Victoria"
-    El combate termina cuando el HP de un jugador llega a **0**. El oponente es declarado ganador de forma inmediata. No existe temporizador, no hay rondas y no hay sistema de desempate.

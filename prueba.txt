@@ -1,4 +1,150 @@
+/* ============================================
+   TEMA PROFESIONAL UI/UX - CLARO Y MODERNO
+   Diseño: Microsoft Fluent / Stripe / GitHub
+   ============================================ */
 
-python -m mkdocs serve
+/* Tipografía profesional */
+body, div, p, span, .contents {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #1e293b;
+}
 
-http://127.0.0.1:8000/
+/* Encabezados con estilo moderno */
+h1, h2, h3, h4 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+}
+
+h1 {
+    font-size: 2rem;
+    border-bottom: 3px solid #3b82f6;
+    padding-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.3rem;
+}
+
+/* Barra lateral moderna */
+#side-nav {
+    background-color: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+}
+
+#nav-tree {
+    background-color: #f8fafc;
+}
+
+/* Enlaces con color corporativo */
+a, .el a {
+    color: #3b82f6;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+/* Bloques de código */
+code, pre, .fragment {
+    font-family: "SF Mono", "JetBrains Mono", "Fira Code", monospace;
+    font-size: 13px;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    padding: 0.2rem 0.4rem;
+    border: 1px solid #e2e8f0;
+}
+
+pre {
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+/* Tablas modernas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+th {
+    background-color: #f1f5f9;
+    font-weight: 600;
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* Botón de copiar */
+.copyButton {
+    background-color: #3b82f6;
+    border-radius: 6px;
+    padding: 4px 8px;
+    color: white;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.copyButton:hover {
+    background-color: #1d4ed8;
+}
+
+/* Tarjetas para clases */
+.contents .memitem {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    transition: box-shadow 0.2s ease;
+}
+
+.contents .memitem:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Títulos de miembros */
+.memtitle {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #0f172a;
+    background-color: #f8fafc;
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}

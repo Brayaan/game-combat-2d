@@ -1,0 +1,1165 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical Design Document — Real-time 1v1 Combat System">
+      
+      
+        <meta name="author" content="Game Combat 2D">
+      
+      
+      
+        <link rel="prev" href="../00-overview/">
+      
+      
+        <link rel="next" href="../01-controls/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>User Manual - Game Combat 2D</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"DM Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#manual-de-usuario" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Game Combat 2D" class="md-header__button md-logo" aria-label="Game Combat 2D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Game Combat 2D
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              User Manual
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../00-overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  User Manual
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-controls/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Controls
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../02-combat-system/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Combat System
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../03-health-system/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Health System
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../04-energy-system/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Energy System
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../06-ui-system/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  UI System
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../05-game-rules/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Game Rules
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../07-game-behavior/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Game Behavior
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Game Combat 2D" class="md-nav__button md-logo" aria-label="Game Combat 2D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Game Combat 2D
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Manual
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-menu-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Menú Principal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Menú Principal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opciones-de-navegacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opciones de Navegación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-seleccion-de-personajes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Selección de Personajes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-controles-del-juego" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Controles del Juego
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-sistema-de-combate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Sistema de Combate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Sistema de Combate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tipos-de-ataque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipos de Ataque
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defensa-y-bloqueo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defensa y Bloqueo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-poderes-especiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Poderes Especiales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-interfaz-del-jugador-hud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Interfaz del Jugador (HUD)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-pausa-y-opciones-de-partida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Pausa y Opciones de Partida
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-consejos-para-la-victoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Consejos para la Victoria
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controls
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-combat-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combat System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-health-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Health System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-energy-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Energy System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-ui-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-game-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game Rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-game-behavior/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game Behavior
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="manual-de-usuario">Manual de Usuario</h1>
+<blockquote>
+<p>Bienvenidos a la guía oficial de Game Combat 2D. Este documento detalla todo lo que necesitas saber para dominar el sistema de juego, desde la navegación básica hasta las mecánicas avanzadas de combate.</p>
+</blockquote>
+<hr />
+<h2 id="1-menu-principal">1. Menú Principal</h2>
+<p>Al iniciar el juego, accederás a la pantalla de inicio, la cual te permitirá configurar tu experiencia o saltar directamente a la acción.</p>
+<h3 id="opciones-de-navegacion">Opciones de Navegación</h3>
+<div class="grid cards">
+<ul>
+<li>
+<p><strong>Jugar</strong></p>
+<p>Te dirige a la pantalla de Selección de Personajes para comenzar una nueva partida.</p>
+</li>
+<li>
+<p><strong>Opciones</strong></p>
+<p>Abre el panel de configuración del juego, donde encontrarás:</p>
+<ul>
+<li><strong>Tutorial (Controles):</strong> Una guía visual rápida con la configuración de los controles.</li>
+<li><strong>Audio:</strong> Deslizadores interactivos para ajustar el volumen de la <strong>Música</strong> y los <strong>Efectos de Sonido (SFX)</strong> de forma independiente.</li>
+</ul>
+</li>
+<li>
+<p><strong>Salir</strong></p>
+<p>Cierra la aplicación de manera segura y regresa al escritorio.</p>
+</li>
+</ul>
+</div>
+<hr />
+<h2 id="2-seleccion-de-personajes">2. Selección de Personajes</h2>
+<p>Antes de iniciar el combate, ambos jugadores deberán elegir a su luchador a través de un menú interactivo.</p>
+<ul>
+<li><strong>Navegación:</strong> Utiliza las flechas direccionales (Izquierda/Derecha) para desplazarte por la lista de personajes. Podrás ver una vista previa de su animación en el centro de la pantalla.</li>
+<li><strong>Información:</strong> En el panel lateral encontrarás los "Datos del Luchador", que incluyen una breve descripción de su estilo de combate.</li>
+<li><strong>Selección:</strong> Una vez que hayas elegido a tu luchador, presiona <strong>Enter</strong> para confirmar y pasar a la arena.</li>
+</ul>
+<hr />
+<h2 id="3-controles-del-juego">3. Controles del Juego</h2>
+<p>El juego está diseñado para partidas multijugador locales, permitiendo que ambos jugadores compartan un mismo teclado.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Jugador 1</label><label for="__tabbed_1_2">Jugador 2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Acción</th>
+<th style="text-align: center;">Tecla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Moverse a la Izquierda</td>
+<td style="text-align: center;"><code>A</code></td>
+</tr>
+<tr>
+<td>Moverse a la Derecha</td>
+<td style="text-align: center;"><code>D</code></td>
+</tr>
+<tr>
+<td>Saltar</td>
+<td style="text-align: center;"><code>Espacio</code></td>
+</tr>
+<tr>
+<td>Agacharse</td>
+<td style="text-align: center;"><code>S</code></td>
+</tr>
+<tr>
+<td>Ataque Rápido</td>
+<td style="text-align: center;"><code>J</code></td>
+</tr>
+<tr>
+<td>Ataque Fuerte</td>
+<td style="text-align: center;"><code>K</code></td>
+</tr>
+<tr>
+<td>Bloquear</td>
+<td style="text-align: center;"><code>L</code></td>
+</tr>
+<tr>
+<td>Ataque Agachado</td>
+<td style="text-align: center;"><code>Q</code> (mientras te agachas)</td>
+</tr>
+<tr>
+<td>Ataque Aéreo</td>
+<td style="text-align: center;"><code>J</code> (mientras saltas)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Acción</th>
+<th style="text-align: center;">Tecla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Moverse a la Izquierda</td>
+<td style="text-align: center;"><code>Flecha Izquierda</code></td>
+</tr>
+<tr>
+<td>Moverse a la Derecha</td>
+<td style="text-align: center;"><code>Flecha Derecha</code></td>
+</tr>
+<tr>
+<td>Saltar</td>
+<td style="text-align: center;"><code>Flecha Arriba</code></td>
+</tr>
+<tr>
+<td>Agacharse</td>
+<td style="text-align: center;"><code>Flecha Abajo</code></td>
+</tr>
+<tr>
+<td>Ataque Rápido</td>
+<td style="text-align: center;"><code>Numpad 1</code></td>
+</tr>
+<tr>
+<td>Ataque Fuerte</td>
+<td style="text-align: center;"><code>Numpad 2</code></td>
+</tr>
+<tr>
+<td>Bloquear</td>
+<td style="text-align: center;"><code>Numpad 5</code></td>
+</tr>
+<tr>
+<td>Ataque Agachado</td>
+<td style="text-align: center;"><code>Q</code> (mientras te agachas)</td>
+</tr>
+<tr>
+<td>Ataque Aéreo</td>
+<td style="text-align: center;"><code>J</code> (mientras saltas)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Auto-Orientación</p>
+<p>Tu personaje siempre mirará automáticamente hacia tu oponente. Esto te permite retroceder de manera segura sin darle la espalda al enemigo, ideal para mantener la distancia mientras bloqueas.</p>
+</div>
+<hr />
+<h2 id="4-sistema-de-combate">4. Sistema de Combate</h2>
+<p>Para dominar la arena, es vital comprender cómo funcionan tus herramientas de ataque y defensa.</p>
+<h3 id="tipos-de-ataque">Tipos de Ataque</h3>
+<ol>
+<li><strong>Ataque Rápido:</strong> Un golpe veloz que causa daño moderado. Ideal para presionar al oponente o interrumpir sus movimientos, ya que te permite recuperarte casi de inmediato.</li>
+<li><strong>Ataque Fuerte:</strong> Un golpe devastador pero más lento. Úsalo con cuidado: si fallas, quedarás expuesto a un contraataque durante unos instantes.</li>
+<li><strong>Ataque Aéreo:</strong> Presiona el botón de ataque rápido mientras saltas para impulsarte hacia adelante y golpear desde el aire.</li>
+<li><strong>Ataque Agachado:</strong> Un golpe bajo sorpresivo diseñado para superar las defensas convencionales de tu oponente.</li>
+</ol>
+<h3 id="defensa-y-bloqueo">Defensa y Bloqueo</h3>
+<div class="admonition success">
+<p class="admonition-title">Ventajas del Bloqueo</p>
+<p>Al mantener presionado el botón de bloqueo en el momento exacto en que recibes un impacto:</p>
+<ul>
+<li>Anularás por completo el daño recibido.</li>
+<li>Empujarás al atacante hacia atrás, ganando espacio.</li>
+<li>Recibirás energía adicional para tus ataques especiales.</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Acciones Simultáneas</p>
+<p>No es posible atacar y bloquear al mismo tiempo. Debes elegir sabiamente cuándo mantener la guardia y cuándo pasar a la ofensiva.</p>
+</div>
+<hr />
+<h2 id="5-poderes-especiales">5. Poderes Especiales</h2>
+<p>Cada personaje cuenta con hasta <strong>cuatro habilidades especiales</strong> que pueden cambiar el curso de la batalla.</p>
+<p>Estas habilidades consumen <strong>Energía</strong>. Una vez que tu barra de energía alcance su nivel máximo, aparecerá en pantalla la <strong>Barra de Poderes</strong>, indicando que estás listo para desatar tus habilidades definitivas.</p>
+<p>Dependiendo de tu personaje, los poderes pueden:
+* Causar daño masivo que no puede ser bloqueado de forma convencional.
+* Curar una porción de tu salud (esta es la única forma de recuperar puntos de vida en el juego).</p>
+<hr />
+<h2 id="6-interfaz-del-jugador-hud">6. Interfaz del Jugador (HUD)</h2>
+<p>Durante el combate, tendrás dos indicadores principales en la parte superior de la pantalla:</p>
+<table>
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Funcionamiento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Salud (HP)</strong></td>
+<td>Comienzas con 100 puntos. La salud disminuye al recibir golpes y no se regenera sola. Si la barra llega a 0, pierdes la partida.</td>
+</tr>
+<tr>
+<td><strong>Energía (EP)</strong></td>
+<td>Comienzas en 0 y se llena gradualmente al acertar golpes, recibir daño o bloquear ataques correctamente. Al llegar a 100, puedes usar tus poderes especiales.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-pausa-y-opciones-de-partida">7. Pausa y Opciones de Partida</h2>
+<p>En cualquier momento de la pelea, puedes presionar la tecla <strong><code>Esc</code></strong> para abrir el menú de pausa y detener la acción. </p>
+<p>Desde este menú, podrás:
+* <strong>Reanudar:</strong> Volver inmediatamente al combate.
+* <strong>Opciones:</strong> Ajustar el volumen de la música y los efectos de sonido sin salir de la pelea.
+* <strong>Reiniciar Partida:</strong> Empezar una nueva ronda desde cero con toda la salud y energía restauradas.
+* <strong>Volver al Menú Principal:</strong> Abandonar la partida y regresar a la pantalla de inicio.</p>
+<hr />
+<h2 id="8-consejos-para-la-victoria">8. Consejos para la Victoria</h2>
+<ol>
+<li><strong>Controla la Distancia:</strong> Asegúrate de estar lo suficientemente cerca antes de lanzar un ataque. Golpear al aire te dejará vulnerable.</li>
+<li><strong>No Presiones Botones al Azar:</strong> Cada ataque lleva tiempo. Si fallas un ataque fuerte, tu oponente tendrá tiempo de sobra para castigarte.</li>
+<li><strong>Aprovecha la Invulnerabilidad:</strong> Si recibes un golpe, tu personaje parpadeará y será invulnerable por un breve instante. Usa este tiempo para escapar o reubicarte.</li>
+<li><strong>Usa el Entorno:</strong> Los personajes no pueden atravesarse. Usa esto a tu favor para acorralar a tu oponente contra las esquinas del escenario y limitar sus opciones de escape.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../00-overview/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../01-controls/" class="md-footer__link md-footer__link--next" aria-label="Next: Controls">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Controls
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.instant", "navigation.instant.progress", "navigation.top", "navigation.footer", "toc.integrate", "toc.follow", "content.code.copy", "content.code.annotate", "content.tooltips", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>
